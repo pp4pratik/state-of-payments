@@ -4,6 +4,7 @@ import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { useMonthlyTrend } from '../lib/queries'
 import { useLiveCounter } from '../lib/useLiveCounter'
+import { useTheme } from '../lib/useTheme'
 import { crNum } from '../lib/format'
 import '../lib/gsapSetup'
 import '../landing.css'
@@ -44,8 +45,8 @@ function attachTilt(el: HTMLElement): () => void {
   }
 }
 
-export function LandingView({ onEnter }: { onEnter: () => void }) {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light')
+export function LandingView({ onEnter, onExplore }: { onEnter: () => void; onExplore: () => void }) {
+  const [theme, toggleTheme] = useTheme('pp-landing-theme', 'light')
   const [startedAt] = useState(() => Date.now())
   const trend = useMonthlyTrend()
   const containerRef = useRef<HTMLDivElement>(null)
@@ -128,7 +129,7 @@ export function LandingView({ onEnter }: { onEnter: () => void }) {
             type="button"
             className="landing-icon-btn"
             aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
-            onClick={() => setTheme((t) => (t === 'light' ? 'dark' : 'light'))}
+            onClick={toggleTheme}
           >
             {theme === 'light' ? <Moon size={16} /> : <Sun size={16} />}
           </button>
@@ -219,6 +220,22 @@ export function LandingView({ onEnter }: { onEnter: () => void }) {
           These counters spread NPCI's latest published monthly total evenly across a second — a directional feel
           for scale, not a real-time feed or an accounting figure.
         </p>
+      </section>
+
+      <section className="landing-explore">
+        <div className="landing-explore-inner">
+          <div>
+            <p className="landing-eyebrow">
+              <span className="dot" />
+              Curious how it works?
+            </p>
+            <h2 className="landing-h2">Watch the money move, one hop at a time.</h2>
+          </div>
+          <button type="button" className="landing-btn" onClick={onExplore}>
+            Explore the rails
+            <ArrowRight size={14} />
+          </button>
+        </div>
       </section>
 
       <div className="landing-footer-cta">

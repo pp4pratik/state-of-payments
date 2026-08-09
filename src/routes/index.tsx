@@ -9,6 +9,7 @@ import { useCardTilt } from '../lib/useCardTilt'
 import { useAppStatsAll } from '../lib/queries'
 import { Controls } from '../components/Controls'
 import { LandingView } from '../components/LandingView'
+import { ExplainerView } from '../components/ExplainerView'
 import { UpiView } from '../components/UpiView'
 import { AutoPayView } from '../components/AutoPayView'
 import { RbiCardsView } from '../components/RbiCardsView'
@@ -20,9 +21,10 @@ export const Route = createFileRoute('/')({
 })
 
 function Landing() {
-  const [entered, setEntered] = useState(false)
-  if (!entered) return <LandingView onEnter={() => setEntered(true)} />
-  return <Dashboard onBack={() => setEntered(false)} />
+  const [screen, setScreen] = useState<'landing' | 'explainer' | 'dashboard'>('landing')
+  if (screen === 'explainer') return <ExplainerView onBack={() => setScreen('landing')} />
+  if (screen === 'dashboard') return <Dashboard onBack={() => setScreen('landing')} />
+  return <LandingView onEnter={() => setScreen('dashboard')} onExplore={() => setScreen('explainer')} />
 }
 
 function Dashboard({ onBack }: { onBack: () => void }) {

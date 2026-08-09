@@ -1,0 +1,281 @@
+import type { LucideIcon } from 'lucide-react'
+import { Banknote, Bell, Building2, CheckCircle2, Clock, CreditCard, Landmark, Repeat, ShieldCheck, Smartphone, Zap } from 'lucide-react'
+
+export type JourneyStep = {
+  icon: LucideIcon
+  title: string
+  detail: string
+  expanded: string
+  stat: { label: string; value: string }
+  hop: { from: string; to: string; label: string }
+}
+export type Journey = { key: string; label: string; tagline: string; steps: JourneyStep[] }
+
+export const JOURNEYS: Journey[] = [
+  {
+    key: 'upi',
+    label: 'UPI',
+    tagline: 'A ₹100 payment, start to finish — usually under 5 seconds.',
+    steps: [
+      {
+        icon: Smartphone,
+        title: 'Customer pays',
+        detail: 'Scans QR, enters PIN',
+        expanded: "The app sends the payee's ID and a PIN proof to the PSP — the PIN itself never leaves the phone.",
+        stat: { label: 'Default limit', value: '₹1 lakh / transaction' },
+        hop: { from: 'Customer', to: "Customer's PSP app", label: 'pay request' },
+      },
+      {
+        icon: Repeat,
+        title: 'PSP forwards it',
+        detail: 'Request goes to NPCI',
+        expanded: "Every bank and PSP connects to one shared hub — there's no direct bank-to-bank link for UPI.",
+        stat: { label: 'Message basis', value: 'ISO 8583-derived format' },
+        hop: { from: 'PSP', to: 'NPCI UPI switch', label: 'route request' },
+      },
+      {
+        icon: Landmark,
+        title: 'NPCI routes it',
+        detail: "NPCI finds the payee's bank",
+        expanded: 'NPCI resolves the VPA, tags the transfer with a unique RRN, and forwards it for authorisation.',
+        stat: { label: 'Trace ID', value: 'Unique 12-digit RRN' },
+        hop: { from: 'NPCI switch', to: "Remitter's bank", label: 'debit request' },
+      },
+      {
+        icon: Building2,
+        title: 'Debit, then credit',
+        detail: 'Two banks, one switch',
+        expanded: 'The remitter bank debits first; NPCI relays a matching credit request to the beneficiary bank.',
+        stat: { label: 'Settlement', value: 'Real-time, gross (not netted)' },
+        hop: { from: 'NPCI switch', to: "Beneficiary's bank", label: 'credit request' },
+      },
+      {
+        icon: CheckCircle2,
+        title: 'Confirmed',
+        detail: 'Both apps show success',
+        expanded: 'A failed credit leg auto-reverses through NPCI — usually within minutes.',
+        stat: { label: 'Typical time', value: '2-5 seconds end to end' },
+        hop: { from: 'Both banks', to: 'Customer & payee apps', label: 'confirmation' },
+      },
+    ],
+  },
+  {
+    key: 'autopay',
+    label: 'UPI AutoPay',
+    tagline: 'How a recurring payment executes without asking for a PIN every time.',
+    steps: [
+      {
+        icon: Smartphone,
+        title: 'Mandate created',
+        detail: 'One PIN, set once',
+        expanded: 'Customer sets an amount and interval, authorises once — that covers every future low-value debit.',
+        stat: { label: 'PIN-free ceiling', value: 'Up to ₹15,000 / execution' },
+        hop: { from: 'Customer', to: 'UPI app', label: 'set mandate' },
+      },
+      {
+        icon: ShieldCheck,
+        title: 'NPCI registers it',
+        detail: "Stored in NPCI's registry",
+        expanded: 'Every future debit gets checked against the registered mandate before it can execute.',
+        stat: { label: 'Above ₹15,000', value: 'Needs a fresh PIN every time' },
+        hop: { from: 'PSP', to: 'NPCI mandate registry', label: 'register mandate' },
+      },
+      {
+        icon: Bell,
+        title: 'Pre-debit notice',
+        detail: '24-hour heads-up, by law',
+        expanded: 'RBI requires the bank to notify the customer before every debit, with a chance to cancel it.',
+        stat: { label: 'Notice window', value: '≥ 24 hours before debit' },
+        hop: { from: "Customer's bank", to: 'Customer', label: 'debit notice' },
+      },
+      {
+        icon: Repeat,
+        title: 'Merchant triggers it',
+        detail: 'Merchant requests the debit',
+        expanded: "On the due date, the merchant's PSP raises a request against the mandate — no customer action needed.",
+        stat: { label: 'Trigger', value: 'Merchant-initiated, mandate-bound' },
+        hop: { from: 'Merchant', to: 'NPCI mandate registry', label: 'execute request' },
+      },
+      {
+        icon: Building2,
+        title: 'Bank auto-debits',
+        detail: 'No fresh PIN needed',
+        expanded: "The bank debits up to the mandate's limit — insufficient balance is the top reason it fails.",
+        stat: { label: 'Common decline', value: 'Insufficient balance, ~75% of failures' },
+        hop: { from: "Customer's bank", to: 'NPCI switch', label: 'auto-debit' },
+      },
+      {
+        icon: CheckCircle2,
+        title: 'Merchant paid',
+        detail: 'Settled, customer notified after',
+        expanded: 'Funds clear through the same UPI rails as a regular payment.',
+        stat: { label: 'Settlement', value: 'Same-day, via UPI clearing' },
+        hop: { from: 'NPCI switch', to: 'Merchant', label: 'settlement' },
+      },
+    ],
+  },
+  {
+    key: 'rtgs',
+    label: 'RTGS',
+    tagline: 'For high-value transfers where every second and every rupee matters.',
+    steps: [
+      {
+        icon: Building2,
+        title: 'Remitter instructs',
+        detail: 'High-value only, ₹2L floor',
+        expanded: 'RTGS is built for large transfers — a ₹2 lakh minimum, no upper cap.',
+        stat: { label: 'Minimum amount', value: '₹2,00,000 (no maximum)' },
+        hop: { from: 'Remitter', to: "Remitter's bank", label: 'transfer instruction' },
+      },
+      {
+        icon: Zap,
+        title: 'RBI settles instantly',
+        detail: 'One at a time, 24x7',
+        expanded: "Live round the clock since Dec 2020 — every transaction settles the moment it's processed, never batched.",
+        stat: { label: 'Availability', value: '24x7x365, since Dec 2020' },
+        hop: { from: "Remitter's bank", to: 'RBI RTGS system', label: 'gross settlement' },
+      },
+      {
+        icon: Landmark,
+        title: 'Bank credited',
+        detail: 'Bank to bank, no delay',
+        expanded: 'Funds move straight through RBI; the receiving bank must credit within 30 minutes.',
+        stat: { label: 'Credit SLA', value: 'Within 30 minutes' },
+        hop: { from: 'RBI RTGS system', to: "Beneficiary's bank", label: 'funds transfer' },
+      },
+      {
+        icon: CheckCircle2,
+        title: 'Irrevocable',
+        detail: 'Final — no recall',
+        expanded: "Once RBI settles it, an RTGS transfer can't be pulled back.",
+        stat: { label: 'Finality', value: 'Immediate and irrevocable' },
+        hop: { from: "Beneficiary's bank", to: 'Beneficiary', label: 'credit' },
+      },
+    ],
+  },
+  {
+    key: 'neft',
+    label: 'NEFT',
+    tagline: 'Batched, not instant — settled in half-hourly cycles through the day.',
+    steps: [
+      {
+        icon: Building2,
+        title: 'Remitter instructs',
+        detail: 'Queued for the next batch',
+        expanded: 'No RBI-set minimum or maximum for NEFT — individual banks may cap it themselves.',
+        stat: { label: 'RBI limit', value: 'None set (bank-dependent)' },
+        hop: { from: 'Remitter', to: "Remitter's bank", label: 'transfer instruction' },
+      },
+      {
+        icon: Clock,
+        title: 'Batched with others',
+        detail: 'Every 30 minutes, 24x7',
+        expanded: 'Forty-eight settlement batches run every day — a transfer waits, at most, for the next one.',
+        stat: { label: 'Batch interval', value: 'Every 30 minutes, 24x7x365' },
+        hop: { from: "Remitter's bank", to: 'RBI NEFT batch', label: 'queued instruction' },
+      },
+      {
+        icon: Landmark,
+        title: 'RBI clears the batch',
+        detail: 'Netted, not gross',
+        expanded: 'Unlike RTGS, NEFT nets the whole batch together before settling it as one event.',
+        stat: { label: 'Settlement type', value: 'Deferred net settlement (DNS)' },
+        hop: { from: 'RBI NEFT batch', to: "Beneficiary's bank", label: 'batch settlement' },
+      },
+      {
+        icon: CheckCircle2,
+        title: 'Bank credited',
+        detail: 'Usually within the hour',
+        expanded: 'Banks must credit the beneficiary within 2 hours of the batch settling.',
+        stat: { label: 'Credit SLA', value: 'Within 2 hours of settlement' },
+        hop: { from: "Beneficiary's bank", to: 'Beneficiary', label: 'credit' },
+      },
+    ],
+  },
+  {
+    key: 'imps',
+    label: 'IMPS',
+    tagline: "India's original instant-payment rail, still running 24x7 under the hood.",
+    steps: [
+      {
+        icon: Smartphone,
+        title: 'Remitter initiates',
+        detail: 'Account, MMID, or Aadhaar',
+        expanded: 'No UPI ID needed — IMPS predates UPI, launched back in 2010.',
+        stat: { label: 'Identifiers', value: 'Account+IFSC, MMID, or Aadhaar' },
+        hop: { from: 'Remitter', to: "Remitter's bank", label: 'transfer request' },
+      },
+      {
+        icon: Landmark,
+        title: 'NPCI switches it',
+        detail: 'Same family as UPI',
+        expanded: "Runs on NPCI's rails, but resolves by account details rather than a VPA.",
+        stat: { label: 'Since', value: "2010, one of NPCI's first products" },
+        hop: { from: "Remitter's bank", to: 'NPCI IMPS switch', label: 'route request' },
+      },
+      {
+        icon: Building2,
+        title: 'Bank credited',
+        detail: 'Real-time, even on holidays',
+        expanded: 'No batching, no downtime — typically capped around ₹5 lakh by the bank.',
+        stat: { label: 'Typical max', value: 'Up to ₹5 lakh (bank-set)' },
+        hop: { from: 'NPCI IMPS switch', to: "Beneficiary's bank", label: 'credit request' },
+      },
+      {
+        icon: CheckCircle2,
+        title: 'Confirmed',
+        detail: 'Done in seconds',
+        expanded: 'The same real-time guarantee UPI later built on top of.',
+        stat: { label: 'Typical time', value: 'A few seconds' },
+        hop: { from: "Beneficiary's bank", to: 'Beneficiary', label: 'confirmation' },
+      },
+    ],
+  },
+  {
+    key: 'cards',
+    label: 'Cards',
+    tagline: 'Four parties, one tap — how a card swipe actually clears.',
+    steps: [
+      {
+        icon: CreditCard,
+        title: 'Card presented',
+        detail: 'Tap, swipe, or type',
+        expanded: 'Chip and tokenisation protect the card data before it ever leaves the terminal.',
+        stat: { label: 'On-device security', value: 'EMV chip + tokenisation' },
+        hop: { from: 'Customer', to: 'PoS terminal / gateway', label: 'card data' },
+      },
+      {
+        icon: Building2,
+        title: 'Acquirer forwards it',
+        detail: "Merchant's bank sends it on",
+        expanded: 'RuPay debit and UPI carry zero merchant fees by RBI mandate since January 2020.',
+        stat: { label: 'RuPay debit/UPI', value: 'Zero MDR since Jan 2020' },
+        hop: { from: 'Acquiring bank', to: 'Card network', label: 'auth request' },
+      },
+      {
+        icon: Repeat,
+        title: 'Network routes it',
+        detail: 'Visa, Mastercard, or RuPay',
+        expanded: 'The network routes to the issuer and applies its own fees along the way.',
+        stat: { label: 'Fees applied here', value: 'Interchange + network assessment' },
+        hop: { from: 'Card network', to: 'Issuing bank', label: 'route request' },
+      },
+      {
+        icon: ShieldCheck,
+        title: 'Issuer approves',
+        detail: 'Balance and fraud checked',
+        expanded: 'The issuing bank approves or declines, usually within a couple of seconds.',
+        stat: { label: 'Response time', value: 'Usually 1-2 seconds' },
+        hop: { from: 'Issuing bank', to: 'Card network', label: 'approve / decline' },
+      },
+      {
+        icon: Banknote,
+        title: 'Settlement',
+        detail: 'Merchant paid in 1-2 days',
+        expanded: 'Clearing runs overnight in a batch; funds flow issuer → network → acquirer → merchant.',
+        stat: { label: 'Merchant payout', value: '1-2 business days after clearing' },
+        hop: { from: 'Issuing bank', to: 'Merchant', label: 'net settlement' },
+      },
+    ],
+  },
+]

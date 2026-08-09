@@ -161,6 +161,88 @@
 .landing-stat-value .unit { font-size: 0.5em; font-weight: 600; margin-left: 6px; color: var(--land-ink-soft); }
 .landing-disclaimer { max-width: 1180px; margin: 18px auto 0; font-size: 12px; color: var(--land-ink-soft); line-height: 1.6; }
 
+/* ---------- Explore teaser (landing page entry point) ---------- */
+.landing-explore { border-top: 2px solid var(--land-border); padding: 48px 32px; }
+.landing-explore-inner {
+  max-width: 1180px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 20px;
+}
+
+/* ---------- Explainer (separate full screen, entered via "Explore the rails") ---------- */
+.explainer-wrap { max-width: 640px; margin: 0 auto; padding: 40px 32px 64px; text-align: center; }
+.explainer-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 16px 0 28px; }
+.landing-journey-tab {
+  font-family: 'JetBrains Mono', monospace; font-size: 12.5px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  border: 2px solid var(--land-border); border-radius: 20px; padding: 8px 16px;
+  background: transparent; color: var(--land-ink-soft); cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.landing-journey-tab:hover { color: var(--land-ink); }
+.landing-journey-tab.active { background: var(--land-ink); color: var(--land-bg); border-color: var(--land-ink); }
+
+.explainer-stage {
+  width: 100%; min-height: 300px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+  border: 2px solid var(--land-border); border-radius: 14px; background: var(--land-surface);
+  padding: 32px 28px; cursor: pointer; font-family: inherit; text-align: center;
+  transition: border-color 0.15s ease;
+}
+.explainer-stage:hover { border-color: var(--land-red); }
+.explainer-stage:focus-visible { outline: 3px solid var(--land-ring); outline-offset: 2px; }
+.explainer-stage svg:not(.journey-hop-arrow svg) { color: var(--land-red); }
+.explainer-stage-step {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--land-red); margin: 0;
+}
+.explainer-stage-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 22px; margin: 4px 0 0; }
+.explainer-stage-detail { font-size: 14.5px; color: var(--land-ink-soft); margin: 0; }
+.explainer-stage-expanded { font-size: 15px; line-height: 1.6; color: var(--land-ink); margin: 4px 0 0; max-width: 480px; }
+.explainer-tap-hint {
+  font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--land-ink-soft); margin-top: 6px;
+}
+
+.journey-stat {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 1px solid var(--land-border); border-radius: 8px; padding: 7px 12px;
+  font-family: 'JetBrains Mono', monospace; font-size: 11.5px;
+}
+.journey-stat-label { color: var(--land-ink-soft); }
+.journey-stat-value { color: var(--land-ink); font-weight: 700; }
+
+.journey-hop { display: flex; align-items: center; gap: 10px; width: 100%; max-width: 420px; }
+.journey-hop-box {
+  flex: 1; text-align: center; font-size: 12px; font-weight: 600;
+  border: 2px solid var(--land-border); border-radius: 8px; padding: 10px 8px; background: var(--land-bg);
+}
+.journey-hop-arrow { display: flex; flex-direction: column; align-items: center; gap: 2px; color: var(--land-red); flex-shrink: 0; }
+.journey-hop-arrow-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--land-ink-soft); white-space: nowrap;
+}
+
+.explainer-controls { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 20px; }
+.explainer-nav-btn {
+  width: 38px; height: 38px; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center;
+  border: 2px solid var(--land-border); border-radius: 50%; background: transparent; color: var(--land-ink);
+  cursor: pointer; transition: border-color 0.15s ease, opacity 0.15s ease;
+}
+.explainer-nav-btn:hover:not(:disabled) { border-color: var(--land-red); }
+.explainer-nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+.explainer-dots { display: flex; align-items: center; gap: 8px; }
+.explainer-dot {
+  width: 9px; height: 9px; border-radius: 50%; border: none; background: var(--land-border-faint); cursor: pointer; padding: 0;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+.explainer-dot:hover { transform: scale(1.2); }
+.explainer-dot.active { background: var(--land-red); transform: scale(1.3); }
+
+@media (max-width: 720px) {
+  .explainer-wrap { padding: 32px 20px 48px; }
+  .explainer-stage { padding: 24px 18px; min-height: 260px; }
+  .journey-hop { flex-direction: column; }
+  .journey-hop-box { width: 100%; }
+}
+
 /* ---------- Footer CTA ---------- */
 .landing-footer-cta {
   border-top: 2px solid var(--land-border);
