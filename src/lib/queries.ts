@@ -1,5 +1,30 @@
 import { useQuery } from '@tanstack/react-query'
+import type { PostgrestError } from '@supabase/supabase-js'
 import { supabase } from './supabase'
+
+const PAGE_SIZE = 1000
+
+// PostgREST caps a single response at 1000 rows by default - tables that
+// accumulate one (or more) row per month grow past that eventually, and an
+// unpaginated .select() silently truncates rather than erroring. Any query
+// meant to fetch every row of a table must page through with .range() instead.
+// Requires a fully deterministic .order() (a unique key, or a tie-broken one)
+// so page boundaries can't skip or duplicate a row.
+async function fetchAllRows<T>(
+  build: (from: number, to: number) => PromiseLike<{ data: T[] | null; error: PostgrestError | null }>,
+): Promise<T[]> {
+  const all: T[] = []
+  let from = 0
+  for (;;) {
+    const { data, error } = await build(from, from + PAGE_SIZE - 1)
+    if (error) throw error
+    if (!data || data.length === 0) break
+    all.push(...data)
+    if (data.length < PAGE_SIZE) break
+    from += PAGE_SIZE
+  }
+  return all
+}
 
 // ---------- Monthly trend (Jun 2021 - present), drives the top trend chart ----------
 export type MonthlyTrendRow = {
@@ -13,12 +38,13 @@ export function useMonthlyTrend() {
   return useQuery({
     queryKey: ['monthly_trend'],
     queryFn: async (): Promise<MonthlyTrendRow[]> => {
-      const { data, error } = await supabase
-        .from('monthly_trend')
-        .select('month, total_volume_mn, total_value_cr, banks_live')
-        .order('month', { ascending: true })
-      if (error) throw error
-      return data
+      return fetchAllRows<MonthlyTrendRow>((from, to) =>
+        supabase
+          .from('monthly_trend')
+          .select('month, total_volume_mn, total_value_cr, banks_live')
+          .order('month', { ascending: true })
+          .range(from, to),
+      )
     },
   })
 }
@@ -35,11 +61,14 @@ export function useAppStatsAll() {
   return useQuery({
     queryKey: ['app_stats', 'all'],
     queryFn: async (): Promise<AppStatsAll> => {
-      const { data, error } = await supabase
-        .from('app_stats')
-        .select('app_name, month, volume_mn, value_cr')
-        .order('month', { ascending: true })
-      if (error) throw error
+      const data = await fetchAllRows<{ app_name: string; month: string; volume_mn: number; value_cr: number }>((from, to) =>
+        supabase
+          .from('app_stats')
+          .select('app_name, month, volume_mn, value_cr')
+          .order('month', { ascending: true })
+          .order('app_name', { ascending: true })
+          .range(from, to),
+      )
 
       const months = [...new Set(data.map((r) => r.month))].sort()
       const monthIdx = new Map(months.map((m, i) => [m, i]))
@@ -76,12 +105,13 @@ export function useP2pAll() {
   return useQuery({
     queryKey: ['p2p_p2m', 'all'],
     queryFn: async (): Promise<P2pRow[]> => {
-      const { data, error } = await supabase
-        .from('p2p_p2m')
-        .select('month, p2p_volume_mn, p2p_value_cr, p2m_volume_mn, p2m_value_cr')
-        .order('month', { ascending: true })
-      if (error) throw error
-      return data
+      return fetchAllRows<P2pRow>((from, to) =>
+        supabase
+          .from('p2p_p2m')
+          .select('month, p2p_volume_mn, p2p_value_cr, p2m_volume_mn, p2m_value_cr')
+          .order('month', { ascending: true })
+          .range(from, to),
+      )
     },
   })
 }
@@ -93,17 +123,25 @@ export function useMerchantCategoriesAll() {
   return useQuery({
     queryKey: ['merchant_categories', 'all'],
     queryFn: async (): Promise<Record<string, CategoryRow[]>> => {
-      const { data, error } = await supabase
-        .from('merchant_categories')
-        .select('description, month, volume_mn, value_cr')
-        .neq('description', 'Others')
-        .order('volume_mn', { ascending: false })
-      if (error) throw error
+      const data = await fetchAllRows<{ description: string; month: string; volume_mn: number; value_cr: number }>((from, to) =>
+        supabase
+          .from('merchant_categories')
+          .select('description, month, volume_mn, value_cr')
+          .neq('description', 'Others')
+          .order('month', { ascending: true })
+          .order('mcc', { ascending: true })
+          .range(from, to),
+      )
 
       const byMonth: Record<string, CategoryRow[]> = {}
       for (const row of data) {
-        const list = (byMonth[row.month] ??= [])
-        if (list.length < 5) list.push({ name: row.description, vol: row.volume_mn, val: row.value_cr })
+        ;(byMonth[row.month] ??= []).push({ name: row.description, vol: row.volume_mn, val: row.value_cr })
+      }
+      // Rank each month's own categories by volume client-side, now that fetching
+      // is paginated (an .order('volume_mn') couldn't paginate reliably - volume
+      // isn't a unique/stable key, so rows could shift between page boundaries).
+      for (const month in byMonth) {
+        byMonth[month] = byMonth[month].sort((a, b) => b.vol - a.vol).slice(0, 5)
       }
       return byMonth
     },
@@ -123,10 +161,15 @@ export function useStatewiseAll() {
       byMonth: Record<string, GeoRow[]>
       granularityByMonth: Record<string, 'State' | 'District'>
     }> => {
-      const { data, error } = await supabase
-        .from('statewise')
-        .select('state, district, month, volume_share_pct, value_share_pct')
-      if (error) throw error
+      const data = await fetchAllRows<{ state: string; district: string; month: string; volume_share_pct: number; value_share_pct: number }>((from, to) =>
+        supabase
+          .from('statewise')
+          .select('state, district, month, volume_share_pct, value_share_pct')
+          .order('month', { ascending: true })
+          .order('state', { ascending: true })
+          .order('district', { ascending: true })
+          .range(from, to),
+      )
 
       const byMonth: Record<string, GeoRow[]> = {}
       const isStateLevel: Record<string, boolean> = {}
@@ -292,9 +335,9 @@ export function useRbiCardsAll() {
   return useQuery({
     queryKey: ['rbi_cards', 'all'],
     queryFn: async (): Promise<RbiCardsRow[]> => {
-      const { data, error } = await supabase.from('rbi_cards').select('*').order('month', { ascending: true })
-      if (error) throw error
-      return data
+      return fetchAllRows<RbiCardsRow>((from, to) =>
+        supabase.from('rbi_cards').select('*').order('month', { ascending: true }).range(from, to),
+      )
     },
   })
 }
@@ -304,9 +347,9 @@ export function useRbiPaymentsAll() {
   return useQuery({
     queryKey: ['rbi_payments', 'all'],
     queryFn: async (): Promise<Record<string, number | string>[]> => {
-      const { data, error } = await supabase.from('rbi_payments').select('*').order('month', { ascending: true })
-      if (error) throw error
-      return data
+      return fetchAllRows<Record<string, number | string>>((from, to) =>
+        supabase.from('rbi_payments').select('*').order('month', { ascending: true }).range(from, to),
+      )
     },
   })
 }
@@ -324,10 +367,14 @@ export function useCirculars() {
   return useQuery({
     queryKey: ['circulars'],
     queryFn: async (): Promise<CircularRow[]> => {
-      const { data, error } = await supabase
-        .from('circulars')
-        .select('ref, fy, title, date_added, pdf_url')
-      if (error) throw error
+      const data = await fetchAllRows<CircularRow>((from, to) =>
+        supabase
+          .from('circulars')
+          .select('ref, fy, title, date_added, pdf_url')
+          .order('fy', { ascending: true })
+          .order('ref', { ascending: true })
+          .range(from, to),
+      )
 
       return [...data].sort((a, b) => {
         const fyEnd = (fy: string) => Number(fy?.split('-').pop()) || 0
