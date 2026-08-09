@@ -153,6 +153,49 @@ export function useMerchantCategoriesAll() {
 // (which only has state-level polygons) can aggregate districts back up to
 // their parent state, independent of what granularity NPCI published that month.
 export type GeoRow = { name: string; state: string; vol: number; val: number }
+type StatewiseSourceRow = { state: string; district: string; month: string; volume_share_pct: number; value_share_pct: number }
+
+// Jan 2025 - May 2026: Supabase only has the old "top 10 states" snapshot for these
+// months (a since-replaced ingestion path capped it there), while NPCI's site itself
+// has since exposed the full breakdown - state-level for Jan'25-Feb'26, full district
+// level from Mar'26 (confirmed by re-scraping each month directly - see
+// scripts/fetch_statewise_historical.py). Re-scraping is a slow, bot-protection-gated
+// Playwright crawl not worth re-running on every page load, so the one-off output is
+// vendored as static JSON and read straight from here instead of round-tripping it
+// through Supabase - these months are historical and won't change.
+const STATIC_STATEWISE_MONTHS = [
+  '2025-01-01', '2025-02-01', '2025-03-01', '2025-04-01', '2025-05-01', '2025-06-01',
+  '2025-07-01', '2025-08-01', '2025-09-01', '2025-10-01', '2025-11-01', '2025-12-01',
+  '2026-01-01', '2026-02-01', '2026-03-01', '2026-04-01', '2026-05-01',
+]
+
+async function fetchStaticStatewiseMonth(month: string): Promise<StatewiseSourceRow[]> {
+  const res = await fetch(`${import.meta.env.BASE_URL}statewise-historical/${month}.json`)
+  if (!res.ok) throw new Error(`Failed to load statewise-historical/${month}.json: ${res.status}`)
+  return res.json()
+}
+
+function groupStatewiseRows(data: StatewiseSourceRow[]): {
+  byMonth: Record<string, GeoRow[]>
+  granularityByMonth: Record<string, 'State' | 'District'>
+} {
+  const byMonth: Record<string, GeoRow[]> = {}
+  const isStateLevel: Record<string, boolean> = {}
+  for (const row of data) {
+    const list = (byMonth[row.month] ??= [])
+    list.push({ name: row.district, state: row.state, vol: row.volume_share_pct, val: row.value_share_pct })
+    if (!(row.month in isStateLevel)) {
+      isStateLevel[row.month] = true
+    }
+    if (row.district.trim().toUpperCase() !== row.state.trim().toUpperCase()) {
+      isStateLevel[row.month] = false
+    }
+  }
+  const granularityByMonth = Object.fromEntries(
+    Object.entries(isStateLevel).map(([m, isState]) => [m, isState ? 'State' : 'District']),
+  ) as Record<string, 'State' | 'District'>
+  return { byMonth, granularityByMonth }
+}
 
 export function useStatewiseAll() {
   return useQuery({
@@ -161,32 +204,23 @@ export function useStatewiseAll() {
       byMonth: Record<string, GeoRow[]>
       granularityByMonth: Record<string, 'State' | 'District'>
     }> => {
-      const data = await fetchAllRows<{ state: string; district: string; month: string; volume_share_pct: number; value_share_pct: number }>((from, to) =>
-        supabase
-          .from('statewise')
-          .select('state, district, month, volume_share_pct, value_share_pct')
-          .order('month', { ascending: true })
-          .order('state', { ascending: true })
-          .order('district', { ascending: true })
-          .range(from, to),
-      )
+      const [supabaseData, ...staticMonths] = await Promise.all([
+        fetchAllRows<StatewiseSourceRow>((from, to) =>
+          supabase
+            .from('statewise')
+            .select('state, district, month, volume_share_pct, value_share_pct')
+            .order('month', { ascending: true })
+            .order('state', { ascending: true })
+            .order('district', { ascending: true })
+            .range(from, to),
+        ),
+        ...STATIC_STATEWISE_MONTHS.map(fetchStaticStatewiseMonth),
+      ])
 
-      const byMonth: Record<string, GeoRow[]> = {}
-      const isStateLevel: Record<string, boolean> = {}
-      for (const row of data) {
-        const list = (byMonth[row.month] ??= [])
-        list.push({ name: row.district, state: row.state, vol: row.volume_share_pct, val: row.value_share_pct })
-        if (!(row.month in isStateLevel)) {
-          isStateLevel[row.month] = true
-        }
-        if (row.district.trim().toUpperCase() !== row.state.trim().toUpperCase()) {
-          isStateLevel[row.month] = false
-        }
-      }
-      const granularityByMonth = Object.fromEntries(
-        Object.entries(isStateLevel).map(([m, isState]) => [m, isState ? 'State' : 'District']),
-      ) as Record<string, 'State' | 'District'>
-      return { byMonth, granularityByMonth }
+      const staticMonthSet = new Set(STATIC_STATEWISE_MONTHS)
+      const supabaseOnly = supabaseData.filter((row) => !staticMonthSet.has(row.month))
+      const grouped = groupStatewiseRows([...supabaseOnly, ...staticMonths.flat()])
+      return grouped
     },
   })
 }
