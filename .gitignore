@@ -24,9 +24,6 @@ src/routeTree.gen.ts
 __pycache__/
 *.pyc
 
-# Scraped intermediate data (regenerable, not source)
-/data/
-
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

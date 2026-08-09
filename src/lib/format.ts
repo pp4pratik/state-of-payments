@@ -1,5 +1,5 @@
-// Every figure on this dashboard is normalized to Crore (1 Crore = 10 Million = 1e7), matching
-// UPI-Dash's convention so numbers read the same across UPI/AutoPay/RBI Cards/RBI Payments.
+// Every figure on this dashboard is normalized to Crore (1 Crore = 10 Million = 1e7), so
+// numbers read the same across UPI/AutoPay/RBI Cards/RBI Payments.
 export function mnToCr(mn: number | null | undefined): number | null {
   return mn == null ? null : mn / 10
 }

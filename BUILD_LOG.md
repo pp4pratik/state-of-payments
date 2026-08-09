@@ -8,10 +8,10 @@ project doesn't pay for it twice.
 
 ## What this project is
 
-`state-of-payments` (branded **UPI Pulse**) is a live, database-backed
-rebuild of a static UPI-Dash site: a single-page dashboard tracking India's
-UPI/AutoPay ecosystem and RBI payment-systems data, reading from Supabase
-instead of hardcoded numbers. Deployed to GitHub Pages.
+`state-of-payments` (branded **UPI Pulse**) is a single-page dashboard
+tracking India's UPI/AutoPay ecosystem and RBI payment-systems data, reading
+from static JSON files scraped directly from NPCI/RBI. Deployed to GitHub
+Pages.
 
 ## Stack
 
@@ -23,9 +23,8 @@ instead of hardcoded numbers. Deployed to GitHub Pages.
 | Charts | Chart.js via `react-chartjs-2` |
 | Icons | `lucide-react` |
 | Analytics | PostHog (`posthog-js`, gated behind `VITE_POSTHOG_KEY`) |
-| Backend | Supabase (Postgres + PostgREST), public read-only RLS policies |
-| Human-editable audit trail | Airtable, kept in sync with Supabase |
-| Data pipelines | Python scripts (`scripts/*.py`), scraping NPCI/RBI directly |
+| Data store | Static JSON under `public/data/` and `public/statewise-historical/` - no backend |
+| Data pipelines | Python scripts (`scripts/*.py`), scraping NPCI/RBI directly, writing straight to JSON |
 | Scraping | Playwright (headless Chromium) for NPCI — plain HTTP is blocked by Akamai |
 | Lint | `oxlint` |
 | CI/CD | GitHub Actions → GitHub Pages, triggered on push to `main` |
@@ -38,9 +37,9 @@ instead of hardcoded numbers. Deployed to GitHub Pages.
   tables, Airtable→Supabase sync script, initial routed pages (Overview, All
   Apps, Spending, Geography, AutoPay, RBI, Circulars).
 - **2026-08-03 — Rebuilt as single-page dashboard.** Scrapped the routed
-  multi-page structure in favor of matching the original static UPI-Dash
-  site's UX exactly: one page, a view-switcher dropdown, Chart.js instead of
-  Recharts, Crore-only number formatting. Added Lucide icons throughout.
+  multi-page structure for one page with a view-switcher dropdown, Chart.js
+  instead of Recharts, Crore-only number formatting. Added Lucide icons
+  throughout.
 - **2026-08-04 — PostHog analytics.**
 - **2026-08-08 — Direct-fetch pipelines, bypassing Airtable as the source of
   truth.** Built `fetch_rbi_data.py` (RBI Cards/Payments, plain HTTP) and

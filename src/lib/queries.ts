@@ -116,10 +116,8 @@ type StatewiseSourceRow = { state: string; district: string; month: string; volu
 // statewise endpoint is scraped directly (bot-protected, needs Playwright) rather
 // than fetched live per page load, and one month's payload (up to ~780 districts)
 // is too big to lump into a single all-months array like every other table. So it
-// gets its own per-month file plus an index.json manifest instead. See
-// scripts/fetch_statewise_historical.py and scripts/export_statewise_to_json.py for
-// how the existing months were produced, and fetch_npci_data.py's write_statewise_json
-// for how new months get appended.
+// gets its own per-month file plus an index.json manifest instead - see
+// fetch_npci_data.py's write_statewise_json for how new months get appended.
 async function fetchStatewiseIndex(): Promise<string[]> {
   const res = await fetch(`${import.meta.env.BASE_URL}statewise-historical/index.json`)
   if (!res.ok) throw new Error(`Failed to load statewise-historical/index.json: ${res.status}`)
