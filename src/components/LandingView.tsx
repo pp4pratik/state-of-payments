@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react'
 import { ArrowRight, Moon, Play, Sun } from 'lucide-react'
 import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
 import { useMonthlyTrend } from '../lib/queries'
 import { useLiveCounter } from '../lib/useLiveCounter'
