@@ -1,0 +1,128 @@
+[
+  {
+    "month": "2025-06-01",
+    "p2p_volume_mn": 6685.63,
+    "p2p_value_cr": 1721058.47,
+    "p2m_volume_mn": 11709.38,
+    "p2m_value_cr": 682872.22
+  },
+  {
+    "month": "2025-11-01",
+    "p2p_volume_mn": 7626.49,
+    "p2p_value_cr": 1867080.57,
+    "p2m_volume_mn": 12840.49,
+    "p2m_value_cr": 764552.06
+  },
+  {
+    "month": "2025-03-01",
+    "p2p_volume_mn": 6840.45,
+    "p2p_value_cr": 1806811.06,
+    "p2m_volume_mn": 11461.06,
+    "p2m_value_cr": 670410.55
+  },
+  {
+    "month": "2025-12-01",
+    "p2p_volume_mn": 8152.29,
+    "p2p_value_cr": 1989139.74,
+    "p2m_volume_mn": 13482.38,
+    "p2m_value_cr": 807572.99
+  },
+  {
+    "month": "2026-03-01",
+    "p2p_volume_mn": 8460.65,
+    "p2p_value_cr": 2091059,
+    "p2m_volume_mn": 14180.46,
+    "p2m_value_cr": 861483.05
+  },
+  {
+    "month": "2025-05-01",
+    "p2p_volume_mn": 6823.8,
+    "p2p_value_cr": 1817672.02,
+    "p2m_volume_mn": 11853.66,
+    "p2m_value_cr": 696624.99
+  },
+  {
+    "month": "2026-05-01",
+    "p2p_volume_mn": 8480.63,
+    "p2p_value_cr": 2117966.16,
+    "p2m_volume_mn": 14721.3,
+    "p2m_value_cr": 872458.05
+  },
+  {
+    "month": "2025-01-01",
+    "p2p_volume_mn": 6426.25,
+    "p2p_value_cr": 1703333.03,
+    "p2m_volume_mn": 10569.75,
+    "p2m_value_cr": 644704.09
+  },
+  {
+    "month": "2025-10-01",
+    "p2p_volume_mn": 7673.36,
+    "p2p_value_cr": 1902048.48,
+    "p2m_volume_mn": 13027.56,
+    "p2m_value_cr": 825742.2
+  },
+  {
+    "month": "2026-04-01",
+    "p2p_volume_mn": 8236.58,
+    "p2p_value_cr": 2051386.16,
+    "p2m_volume_mn": 14110.22,
+    "p2m_value_cr": 851601.89
+  },
+  {
+    "month": "2025-09-01",
+    "p2p_volume_mn": 7266.46,
+    "p2p_value_cr": 1770169.25,
+    "p2m_volume_mn": 12366.97,
+    "p2m_value_cr": 719567.29
+  },
+  {
+    "month": "2026-01-01",
+    "p2p_volume_mn": 8095.35,
+    "p2p_value_cr": 1992655.39,
+    "p2m_volume_mn": 13608.1,
+    "p2m_value_cr": 840825.83
+  },
+  {
+    "month": "2026-02-01",
+    "p2p_volume_mn": 7598.4,
+    "p2p_value_cr": 1911812.35,
+    "p2m_volume_mn": 12795.78,
+    "p2m_value_cr": 772416.94
+  },
+  {
+    "month": "2025-02-01",
+    "p2p_volume_mn": 6039.45,
+    "p2p_value_cr": 1606397.95,
+    "p2m_volume_mn": 10066.74,
+    "p2m_value_cr": 590083.74
+  },
+  {
+    "month": "2026-06-01",
+    "p2p_volume_mn": 8288.19,
+    "p2p_value_cr": 2031141.53,
+    "p2m_volume_mn": 14427.88,
+    "p2m_value_cr": 860997.14
+  },
+  {
+    "month": "2025-04-01",
+    "p2p_volume_mn": 6539.82,
+    "p2p_value_cr": 1731364.08,
+    "p2m_volume_mn": 11353.6,
+    "p2m_value_cr": 663561.79
+  },
+  {
+    "month": "2025-08-01",
+    "p2p_volume_mn": 7303.15,
+    "p2p_value_cr": 1761675.49,
+    "p2m_volume_mn": 12705.16,
+    "p2m_value_cr": 723797.42
+  },
+  {
+    "month": "2025-07-01",
+    "p2p_volume_mn": 7079.84,
+    "p2p_value_cr": 1774485.73,
+    "p2m_volume_mn": 12388.11,
+    "p2m_value_cr": 734012.36
+  }
+]

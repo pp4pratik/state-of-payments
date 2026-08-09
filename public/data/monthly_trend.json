@@ -1,0 +1,206 @@
+[
+  {
+    "month": "2024-01-01",
+    "total_volume_mn": 12203.02,
+    "total_value_cr": 1841083.97,
+    "banks_live": 731
+  },
+  {
+    "month": "2025-02-01",
+    "total_volume_mn": 16106.19,
+    "total_value_cr": 2196481.69,
+    "banks_live": 731
+  },
+  {
+    "month": "2025-08-01",
+    "total_volume_mn": 20008.31,
+    "total_value_cr": 2485472.91,
+    "banks_live": 731
+  },
+  {
+    "month": "2025-03-01",
+    "total_volume_mn": 18301.51,
+    "total_value_cr": 2477221.61,
+    "banks_live": 731
+  },
+  {
+    "month": "2026-02-01",
+    "total_volume_mn": 20394.18,
+    "total_value_cr": 2684229.29,
+    "banks_live": 731
+  },
+  {
+    "month": "2023-12-01",
+    "total_volume_mn": 12020.23,
+    "total_value_cr": 1822949.42,
+    "banks_live": 731
+  },
+  {
+    "month": "2025-12-01",
+    "total_volume_mn": 21634.67,
+    "total_value_cr": 2796712.73,
+    "banks_live": 731
+  },
+  {
+    "month": "2023-08-01",
+    "total_volume_mn": 10586.02,
+    "total_value_cr": 1576536.56,
+    "banks_live": 731
+  },
+  {
+    "month": "2023-10-01",
+    "total_volume_mn": 11408.79,
+    "total_value_cr": 1715768.34,
+    "banks_live": 731
+  },
+  {
+    "month": "2024-08-01",
+    "total_volume_mn": 14963.05,
+    "total_value_cr": 2060735.57,
+    "banks_live": 731
+  },
+  {
+    "month": "2026-01-01",
+    "total_volume_mn": 21703.44,
+    "total_value_cr": 2833481.22,
+    "banks_live": 731
+  },
+  {
+    "month": "2024-09-01",
+    "total_volume_mn": 15041.75,
+    "total_value_cr": 2063994.71,
+    "banks_live": 731
+  },
+  {
+    "month": "2024-02-01",
+    "total_volume_mn": 12102.67,
+    "total_value_cr": 1827869.35,
+    "banks_live": 731
+  },
+  {
+    "month": "2023-06-01",
+    "total_volume_mn": 9335.06,
+    "total_value_cr": 1475464.26,
+    "banks_live": 731
+  },
+  {
+    "month": "2026-03-01",
+    "total_volume_mn": 22641.11,
+    "total_value_cr": 2952542.05,
+    "banks_live": 731
+  },
+  {
+    "month": "2026-06-01",
+    "total_volume_mn": 22716.07,
+    "total_value_cr": 2892138.67,
+    "banks_live": 731
+  },
+  {
+    "month": "2025-11-01",
+    "total_volume_mn": 20466.98,
+    "total_value_cr": 2631632.63,
+    "banks_live": 731
+  },
+  {
+    "month": "2026-05-01",
+    "total_volume_mn": 23201.93,
+    "total_value_cr": 2990424.21,
+    "banks_live": 731
+  },
+  {
+    "month": "2025-06-01",
+    "total_volume_mn": 18395.01,
+    "total_value_cr": 2403930.69,
+    "banks_live": 731
+  },
+  {
+    "month": "2023-09-01",
+    "total_volume_mn": 10555.69,
+    "total_value_cr": 1579133.18,
+    "banks_live": 731
+  },
+  {
+    "month": "2024-12-01",
+    "total_volume_mn": 16730.01,
+    "total_value_cr": 2324699.91,
+    "banks_live": 731
+  },
+  {
+    "month": "2024-07-01",
+    "total_volume_mn": 14435.55,
+    "total_value_cr": 2064292.41,
+    "banks_live": 731
+  },
+  {
+    "month": "2025-10-01",
+    "total_volume_mn": 20700.92,
+    "total_value_cr": 2727790.68,
+    "banks_live": 731
+  },
+  {
+    "month": "2024-11-01",
+    "total_volume_mn": 15482.02,
+    "total_value_cr": 2155187.4,
+    "banks_live": 731
+  },
+  {
+    "month": "2024-06-01",
+    "total_volume_mn": 13885.14,
+    "total_value_cr": 2007081.2,
+    "banks_live": 731
+  },
+  {
+    "month": "2025-07-01",
+    "total_volume_mn": 19467.95,
+    "total_value_cr": 2508498.09,
+    "banks_live": 731
+  },
+  {
+    "month": "2024-10-01",
+    "total_volume_mn": 16584.97,
+    "total_value_cr": 2349821.46,
+    "banks_live": 731
+  },
+  {
+    "month": "2025-01-01",
+    "total_volume_mn": 16996,
+    "total_value_cr": 2348037.12,
+    "banks_live": 731
+  },
+  {
+    "month": "2023-07-01",
+    "total_volume_mn": 9964.61,
+    "total_value_cr": 1533536.44,
+    "banks_live": 731
+  },
+  {
+    "month": "2025-09-01",
+    "total_volume_mn": 19633.43,
+    "total_value_cr": 2489736.54,
+    "banks_live": 731
+  },
+  {
+    "month": "2024-03-01",
+    "total_volume_mn": 13440,
+    "total_value_cr": 1978353.23,
+    "banks_live": 731
+  },
+  {
+    "month": "2026-04-01",
+    "total_volume_mn": 22346.8,
+    "total_value_cr": 2902988.05,
+    "banks_live": 731
+  },
+  {
+    "month": "2023-11-01",
+    "total_volume_mn": 11235.29,
+    "total_value_cr": 1739740.61,
+    "banks_live": 731
+  },
+  {
+    "month": "2026-07-01",
+    "total_volume_mn": 23658.35,
+    "total_value_cr": 2987880.49,
+    "banks_live": 741.0
+  }
+]

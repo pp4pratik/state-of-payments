@@ -156,8 +156,8 @@ def fetch_statewise_for_month(page, year, month_abbr_val):
     total_vol = sum(o["volume_mn"] or 0 for o in out)
     total_val = sum(o["value_cr"] or 0 for o in out)
     for o in out:
-        o["volume_share_pct"] = round(o["volume_mn"] / total_vol * 100, 2) if total_vol else None
-        o["value_share_pct"] = round(o["value_cr"] / total_val * 100, 2) if total_val else None
+        o["volume_share_pct"] = round((o["volume_mn"] or 0) / total_vol * 100, 2) if total_vol else None
+        o["value_share_pct"] = round((o["value_cr"] or 0) / total_val * 100, 2) if total_val else None
 
     return out, status
 

@@ -1,29 +1,23 @@
 """
 Fetches the latest RBI Bank-wise ATM/POS/Card Statistics and RBI Payment System
 Indicators directly from rbi.org.in - the "fetch from source, not hand-entry" half
-of the pipeline. RBI's site has no bot protection, so a plain HTTP request works
-(confirmed: matches values already in Supabase byte-for-byte). NPCI's stats are NOT
-covered here - NPCI's API sits behind Akamai bot protection that blocks plain
-requests, so those still go through Airtable by hand for now.
+of the pipeline (see fetch_npci_data.py for the NPCI half). RBI's site has no bot
+protection, so a plain HTTP request works.
 
-Writes to BOTH Airtable (kept as the human-editable audit trail/backup) and
-Supabase (what the live site actually reads), so a bad month can be spotted and
-hand-corrected in Airtable without touching this script.
+Writes straight to the static JSON files under public/data/ that the live site
+reads - see src/lib/queries.ts and scripts/json_store.py.
 
 Usage:
     python3 scripts/fetch_rbi_data.py [--dry-run]
-
-Requires .env: AIRTABLE_TOKEN, SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
 """
 
 import json
-import os
 import re
 import sys
-import urllib.error
-import urllib.parse
 import urllib.request
 from pathlib import Path
+
+import json_store
 
 PROJECT_DIR = Path(__file__).resolve().parent.parent
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36"
@@ -32,19 +26,6 @@ MONTH_NUM = {
     "May": "05", "June": "06", "July": "07", "August": "08",
     "September": "09", "October": "10", "November": "11", "December": "12",
 }
-
-
-def load_env(path):
-    env = dict(os.environ)
-    if path.exists():
-        with open(path) as f:
-            for line in f:
-                line = line.strip()
-                if not line or line.startswith("#") or "=" not in line:
-                    continue
-                k, v = line.split("=", 1)
-                env.setdefault(k, v)
-    return env
 
 
 def fetch_url(url):
@@ -252,91 +233,24 @@ def fetch_rbi_payments():
     return fields
 
 
-# ---------------- Write to Airtable + Supabase ----------------
-def airtable_find_record_id(base_id, table_id, token, month_iso):
-    # {Month} is an Airtable date field - plain string equality against it silently
-    # matches nothing (confirmed the hard way: it created a duplicate record instead
-    # of finding the existing one). IS_SAME is the correct date-field comparison.
-    url = f"https://api.airtable.com/v0/{base_id}/{table_id}?filterByFormula=" + urllib.parse.quote(
-        f"IS_SAME({{Month}}, '{month_iso}')"
-    )
-    req = urllib.request.Request(url, headers={"Authorization": f"Bearer {token}"})
-    with urllib.request.urlopen(req) as resp:
-        data = json.load(resp)
-    return data["records"][0]["id"] if data["records"] else None
-
-
-def airtable_upsert(base_id, table_id, token, fields, dry_run):
-    month_iso = fields["Month"]
-    if dry_run:
-        print(f"  [dry-run] would upsert Airtable record for {month_iso} ({len(fields)} fields)")
-        return
-    existing_id = airtable_find_record_id(base_id, table_id, token, month_iso)
-    body = json.dumps({"fields": fields}).encode()
-    headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
-    if existing_id:
-        url = f"https://api.airtable.com/v0/{base_id}/{table_id}/{existing_id}"
-        req = urllib.request.Request(url, data=body, headers=headers, method="PATCH")
-    else:
-        url = f"https://api.airtable.com/v0/{base_id}/{table_id}"
-        req = urllib.request.Request(url, data=body, headers=headers, method="POST")
-    with urllib.request.urlopen(req) as resp:
-        resp.read()
-    print(f"  Airtable: {'updated' if existing_id else 'created'} record for {month_iso}")
-
-
-def supabase_upsert(supabase_url, service_role_key, pg_table, unique_cols, row, dry_run):
-    if dry_run:
-        print(f"  [dry-run] would upsert Supabase {pg_table} for {row.get('month')} ({len(row)} columns)")
-        return
-    url = f"{supabase_url}/rest/v1/{pg_table}?on_conflict={','.join(unique_cols)}"
-    headers = {
-        "apikey": service_role_key,
-        "Authorization": f"Bearer {service_role_key}",
-        "Content-Type": "application/json",
-        "Prefer": "resolution=merge-duplicates,return=minimal",
-    }
-    req = urllib.request.Request(url, data=json.dumps([row]).encode(), headers=headers, method="POST")
-    try:
-        with urllib.request.urlopen(req) as resp:
-            resp.read()
-    except urllib.error.HTTPError as e:
-        sys.exit(f"  ERROR upserting into {pg_table}: {e.code} {e.read().decode()}")
-    print(f"  Supabase: upserted {pg_table} for {row.get('month')}")
-
-
 def snake(label):
     return re.sub(r"^_+|_+$", "", re.sub(r"[^a-z0-9]+", "_", label.lower()))
 
 
 def main():
     dry_run = "--dry-run" in sys.argv
-    env = load_env(PROJECT_DIR / ".env")
-    airtable_token = env.get("AIRTABLE_TOKEN")
-    supabase_url = env.get("SUPABASE_URL", "").rstrip("/")
-    service_role_key = env.get("SUPABASE_SERVICE_ROLE_KEY")
-    if not (airtable_token and supabase_url and service_role_key):
-        sys.exit("Missing AIRTABLE_TOKEN, SUPABASE_URL, or SUPABASE_SERVICE_ROLE_KEY in .env")
-
-    with open(PROJECT_DIR / "supabase" / "airtable_schema.json") as f:
-        airtable_schema = json.load(f)
-    base_id = airtable_schema["baseId"]
-    cards_table_id = airtable_schema["tables"]["RBI Cards"]
-    payments_table_id = airtable_schema["tables"]["RBI Payments"]
 
     print("Fetching RBI Cards (Bank-wise ATM/POS/Card Statistics)...")
     cards_fields = fetch_rbi_cards()
     print(f"  Found {cards_fields['Month']} ({len(cards_fields) - 1} metrics)")
-    airtable_upsert(base_id, cards_table_id, airtable_token, cards_fields, dry_run)
     cards_row = {snake(k) if k != "Month" else "month": v for k, v in cards_fields.items()}
-    supabase_upsert(supabase_url, service_role_key, "rbi_cards", ["month"], cards_row, dry_run)
+    json_store.upsert_single("rbi_cards", ["month"], cards_row, dry_run)
 
     print("Fetching RBI Payments (Payment System Indicators)...")
     payments_fields = fetch_rbi_payments()
     print(f"  Found {payments_fields['Month']} ({len(payments_fields) - 1} metrics)")
-    airtable_upsert(base_id, payments_table_id, airtable_token, payments_fields, dry_run)
     payments_row = {snake(k) if k != "Month" else "month": v for k, v in payments_fields.items()}
-    supabase_upsert(supabase_url, service_role_key, "rbi_payments", ["month"], payments_row, dry_run)
+    json_store.upsert_single("rbi_payments", ["month"], payments_row, dry_run)
 
     print("Done.")
 

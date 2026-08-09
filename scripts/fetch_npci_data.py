@@ -10,50 +10,40 @@ with no extra work - no cookies/session priming needed - so this uses Playwright
 NOT covered: P2P/P2M Transactions. NPCI's own site currently 500s on that tab for
 every month tested (confirmed via both the live UI and the raw API endpoint,
 independent of any request details this script controls) - a live bug on their end,
-not something fixable here. Falls back to Airtable hand-entry until NPCI fixes it.
+not something fixable here. There's no automated source for it until NPCI fixes
+this; hand-edit public/data/p2p_p2m.json directly when new figures are available.
 
-Writes to BOTH Airtable (kept as the human-editable audit trail) and Supabase (what
-the live site reads). Single-row-per-month tables (Monthly Trend) are found-and-
-updated like fetch_rbi_data.py. Multi-row-per-month tables (App Stats, Merchant
-Categories, Statewise, PSP Member Performance, AutoPay Registrations/Executions) use
-delete-then-recreate for that month in Airtable instead of per-row matching - simpler
-and safer than trying to match entity identity row-by-row across runs, and Supabase's
-upsert (on_conflict on the natural key) handles the equivalent there directly.
+Writes straight to the static JSON files under public/data/ that the live site
+reads (see src/lib/queries.ts and scripts/json_store.py) - no Airtable or Supabase
+involved anywhere in this pipeline. Statewise is the one exception even within
+JSON: its per-month payload is large enough (up to ~780 rows) that it gets its own
+per-month file plus an index.json manifest under public/statewise-historical/,
+rather than one big array like every other table (see write_statewise_json and
+useStatewiseAll). Single-row-per-month tables (Monthly Trend) are found-and-updated
+like fetch_rbi_data.py. Multi-row-per-month tables (App Stats, Merchant Categories,
+Statewise, PSP Member Performance, AutoPay Registrations/Executions) use
+delete-then-recreate for that month instead of per-row matching - simpler and safer
+than trying to match entity identity row-by-row across runs.
 
 Usage:
     python3 scripts/fetch_npci_data.py [--dry-run] [--only monthly_trend,app_stats,...]
 
-Requires .env: AIRTABLE_TOKEN, SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
 Requires: pip install playwright && playwright install chromium
 """
 
 import json
-import os
 import re
 import sys
-import urllib.error
-import urllib.parse
-import urllib.request
 from datetime import date
 from pathlib import Path
 
 from playwright.sync_api import sync_playwright
 
+import json_store
+
 PROJECT_DIR = Path(__file__).resolve().parent.parent
 MONTH_ABBR = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-
-
-def load_env(path):
-    env = dict(os.environ)
-    if path.exists():
-        with open(path) as f:
-            for line in f:
-                line = line.strip()
-                if not line or line.startswith("#") or "=" not in line:
-                    continue
-                k, v = line.split("=", 1)
-                env.setdefault(k, v)
-    return env
+STATEWISE_JSON_DIR = PROJECT_DIR / "public" / "statewise-historical"
 
 
 def month_iso(year, month_abbr_val):
@@ -247,34 +237,68 @@ def fetch_statewise(page):
         ),
         page_size=100,
     )
-    out = []
+    month_val = month_iso(y, m)
+    parsed = []
     for r in rows:
         state = re.sub(r"\s*#\s*$", "", (r["state_union_territory"] or "")).strip()
+        # Some months append " Total" to the state name itself instead of using
+        # district="-" for the per-state summary row (confirmed: March 2026's
+        # response used this convention) - strip it so the state name is clean
+        # either way.
+        state = re.sub(r"\s+Total$", "", state, flags=re.IGNORECASE).strip()
         district = (r["district"] or "").strip()
         is_unclassified = state.lower().startswith("unclassified")
-        # NPCI's response nests a per-state "Total" summary row (district="-") above
-        # that state's own district rows - confirmed the district rows already sum
-        # back to the same total (55.82% vs 55.93%, within rounding), so keeping
-        # both would double: a "Total" row with no district name would rank at the
-        # top of any volume-sorted table, ahead of every real district, showing a
-        # blank/"-" location. Drop those, but keep "Unclassified" (44% of volume
-        # this month - transactions NPCI couldn't attribute to any district) as its
-        # own real entry rather than silently losing that share of the total.
-        if is_unclassified:
-            district = "Unclassified"
-        elif district == "-":
-            continue
-        out.append(
+        parsed.append(
             {
-                "State": state,
-                "District": district,
-                "Month": month_iso(y, m),
-                "Volume (Mn)": num(r["volume_in_mn"]),
-                "Volume Share %": num(r["volume_contribution"]),
-                "Value (Cr)": num(r["value_in_cr"]),
-                "Value Share %": num(r["value_contribution"]),
+                "state": state,
+                "district": district,
+                "is_unclassified": is_unclassified,
+                "volume_mn": num(r["volume_in_mn"]),
+                "value_cr": num(r["value_in_cr"]),
             }
         )
+
+    # NPCI's response nests a per-state "Total" summary row above that state's own
+    # district rows in district-granularity months - confirmed the district rows
+    # already sum back to the same total, so keeping both would double: a "Total"
+    # row with no district name would rank at the top of any volume-sorted table.
+    # But in a state-only month EVERY row is blank-district by nature (no district
+    # breakdown was published at all) - there it's the only data for that state, so
+    # per the app's convention (see useStatewiseAll/GeoRow) set district = state
+    # rather than dropping it. Keep "Unclassified" as its own entry either way,
+    # rather than silently losing that share of the total.
+    has_real_districts = any(p["district"] not in ("", "-") and not p["is_unclassified"] for p in parsed)
+
+    out = []
+    for p in parsed:
+        if p["is_unclassified"]:
+            district = "Unclassified"
+        elif p["district"] in ("", "-"):
+            if has_real_districts:
+                continue
+            district = p["state"]
+        else:
+            district = p["district"]
+        out.append(
+            {
+                "State": p["state"],
+                "District": district,
+                "Month": month_val,
+                "Volume (Mn)": p["volume_mn"],
+                "Value (Cr)": p["value_cr"],
+            }
+        )
+
+    # NPCI's own volume_contribution/value_contribution fields are unreliable -
+    # confirmed one month came back with every value exactly 100x too small - so
+    # compute the share ourselves from volume_mn/value_cr instead of trusting a
+    # field that's already proven wrong once on this exact endpoint.
+    total_vol = sum(o["Volume (Mn)"] or 0 for o in out)
+    total_val = sum(o["Value (Cr)"] or 0 for o in out)
+    for o in out:
+        o["Volume Share %"] = round((o["Volume (Mn)"] or 0) / total_vol * 100, 2) if total_vol else None
+        o["Value Share %"] = round((o["Value (Cr)"] or 0) / total_val * 100, 2) if total_val else None
+
     return out
 
 
@@ -489,119 +513,6 @@ def fetch_circulars(page, years):
     return out
 
 
-# ---------------- Write to Airtable + Supabase ----------------
-def airtable_request(url, token, method="GET", body=None):
-    headers = {"Authorization": f"Bearer {token}"}
-    data = None
-    if body is not None:
-        headers["Content-Type"] = "application/json"
-        data = json.dumps(body).encode()
-    req = urllib.request.Request(url, data=data, headers=headers, method=method)
-    with urllib.request.urlopen(req) as resp:
-        raw = resp.read()
-        return json.loads(raw) if raw else {}
-
-
-def airtable_find_ids_for_month(base_id, table_id, token, month_iso_val):
-    ids = []
-    offset = None
-    while True:
-        formula = urllib.parse.quote(f"IS_SAME({{Month}}, '{month_iso_val}')")
-        url = f"https://api.airtable.com/v0/{base_id}/{table_id}?filterByFormula={formula}&pageSize=100"
-        if offset:
-            url += f"&offset={offset}"
-        data = airtable_request(url, token)
-        ids.extend(r["id"] for r in data["records"])
-        offset = data.get("offset")
-        if not offset:
-            break
-    return ids
-
-
-def airtable_batch_delete(base_id, table_id, token, ids):
-    for i in range(0, len(ids), 10):
-        batch = ids[i : i + 10]
-        qs = "&".join(f"records[]={rid}" for rid in batch)
-        airtable_request(f"https://api.airtable.com/v0/{base_id}/{table_id}?{qs}", token, method="DELETE")
-
-
-def airtable_batch_create(base_id, table_id, token, field_rows):
-    for i in range(0, len(field_rows), 10):
-        batch = field_rows[i : i + 10]
-        body = {"records": [{"fields": f} for f in batch]}
-        airtable_request(f"https://api.airtable.com/v0/{base_id}/{table_id}", token, method="POST", body=body)
-
-
-def airtable_upsert_single_row(base_id, table_id, token, fields, dry_run):
-    month_iso_val = fields["Month"]
-    if dry_run:
-        print(f"  [dry-run] Airtable: would upsert 1 record for {month_iso_val}")
-        return
-    existing = airtable_find_ids_for_month(base_id, table_id, token, month_iso_val)
-    if existing:
-        airtable_request(
-            f"https://api.airtable.com/v0/{base_id}/{table_id}/{existing[0]}",
-            token,
-            method="PATCH",
-            body={"fields": fields},
-        )
-        print(f"  Airtable: updated record for {month_iso_val}")
-    else:
-        airtable_batch_create(base_id, table_id, token, [fields])
-        print(f"  Airtable: created record for {month_iso_val}")
-
-
-def airtable_replace_month_rows(base_id, table_id, token, field_rows, dry_run):
-    if not field_rows:
-        return
-    month_iso_val = field_rows[0]["Month"]
-    if dry_run:
-        print(f"  [dry-run] Airtable: would replace {len(field_rows)} row(s) for {month_iso_val}")
-        return
-    # Create the new rows BEFORE deleting the old ones - if create fails partway
-    # (e.g. a field validation error), the existing data is left untouched instead
-    # of being wiped with nothing to replace it. Learned this the hard way: an
-    # earlier version deleted-then-created and a 422 on create left Merchant
-    # Categories empty for a month until manually re-run.
-    existing = airtable_find_ids_for_month(base_id, table_id, token, month_iso_val)
-    airtable_batch_create(base_id, table_id, token, field_rows)
-    if existing:
-        airtable_batch_delete(base_id, table_id, token, existing)
-    print(f"  Airtable: replaced {len(existing)} -> {len(field_rows)} row(s) for {month_iso_val}")
-
-
-def airtable_replace_all_circulars(base_id, table_id, token, field_rows, dry_run):
-    """Circulars have no month axis, so dedupe by (FY, Ref) instead - delete any
-    existing record with the same key before recreating, leaving everything else
-    (older years not covered by this run) untouched."""
-    if dry_run:
-        print(f"  [dry-run] Airtable: would upsert {len(field_rows)} circular(s)")
-        return
-
-    all_records = []
-    offset = None
-    while True:
-        url = f"https://api.airtable.com/v0/{base_id}/{table_id}?pageSize=100"
-        if offset:
-            url += f"&offset={offset}"
-        data = airtable_request(url, token)
-        all_records.extend(data["records"])
-        offset = data.get("offset")
-        if not offset:
-            break
-
-    by_key = {}
-    for r in all_records:
-        key = (r["fields"].get("FY"), r["fields"].get("Ref"))
-        by_key[key] = r["id"]
-
-    to_delete = [by_key[(row["FY"], row["Ref"])] for row in field_rows if (row["FY"], row["Ref"]) in by_key]
-    airtable_batch_create(base_id, table_id, token, field_rows)  # create before delete - see note above
-    if to_delete:
-        airtable_batch_delete(base_id, table_id, token, to_delete)
-    print(f"  Airtable: upserted {len(field_rows)} circular(s) ({len(to_delete)} replaced, {len(field_rows) - len(to_delete)} new)")
-
-
 def normalize_key(s):
     return re.sub(r"[^a-z0-9]", "", (s or "").lower())
 
@@ -640,95 +551,24 @@ def snake(label):
     return re.sub(r"^_+|_+$", "", re.sub(r"[^a-z0-9]+", "_", label.lower()))
 
 
-def supabase_upsert(supabase_url, service_role_key, pg_table, unique_cols, rows, dry_run):
+def write_statewise_json(rows, dry_run):
+    """Geography is served entirely from static JSON, not Supabase (see
+    useStatewiseAll in src/lib/queries.ts) - write this month's file directly instead
+    of upserting to a statewise table, and refresh index.json, the manifest the app
+    reads to discover which months exist."""
     if not rows:
         return
+    month = rows[0]["month"]
     if dry_run:
-        print(f"  [dry-run] Supabase: would upsert {len(rows)} row(s) into {pg_table}")
+        print(f"  [dry-run] Geography: would write {len(rows)} row(s) to statewise-historical/{month}.json")
         return
-    url = f"{supabase_url}/rest/v1/{pg_table}?on_conflict={','.join(unique_cols)}"
-    headers = {
-        "apikey": service_role_key,
-        "Authorization": f"Bearer {service_role_key}",
-        "Content-Type": "application/json",
-        "Prefer": "resolution=merge-duplicates,return=minimal",
-    }
-    req = urllib.request.Request(url, data=json.dumps(rows).encode(), headers=headers, method="POST")
-    try:
-        with urllib.request.urlopen(req) as resp:
-            resp.read()
-    except urllib.error.HTTPError as e:
-        sys.exit(f"  ERROR upserting into {pg_table}: {e.code} {e.read().decode()}")
-    print(f"  Supabase: upserted {len(rows)} row(s) into {pg_table}")
-
-
-def supabase_get(supabase_url, service_role_key, pg_table, select_cols, filter_qs):
-    headers = {"apikey": service_role_key, "Authorization": f"Bearer {service_role_key}"}
-    url = f"{supabase_url}/rest/v1/{pg_table}?select={','.join(select_cols)}&{filter_qs}"
-    req = urllib.request.Request(url, headers=headers)
-    with urllib.request.urlopen(req) as resp:
-        return json.loads(resp.read())
-
-
-def supabase_distinct_values(supabase_url, service_role_key, pg_table, column, exclude_filter=None):
-    # exclude_filter (e.g. "month=neq.2026-06-01") matters: without it, a month
-    # already written with bad-cased names in a previous run pollutes its own
-    # reference set, so normalization can't tell which spelling is "established"
-    # anymore - confirmed the hard way when this picked "Cred"/"Whatsapp" instead
-    # of "CRED"/"WhatsApp" because the wrong casing was already sitting in the table
-    # from before this fix existed.
-    headers = {"apikey": service_role_key, "Authorization": f"Bearer {service_role_key}"}
-    values = set()
-    offset = 0
-    page_size = 1000
-    while True:
-        url = f"{supabase_url}/rest/v1/{pg_table}?select={column}&limit={page_size}&offset={offset}"
-        if exclude_filter:
-            url += f"&{exclude_filter}"
-        req = urllib.request.Request(url, headers=headers)
-        data = json.loads(urllib.request.urlopen(req).read())
-        values.update(r[column] for r in data if r[column])
-        if len(data) < page_size:
-            break
-        offset += page_size
-    return values
-
-
-def supabase_delete_by_ids(supabase_url, service_role_key, pg_table, ids):
-    if not ids:
-        return
-    headers = {"apikey": service_role_key, "Authorization": f"Bearer {service_role_key}"}
-    id_list = ",".join(str(i) for i in ids)
-    req = urllib.request.Request(
-        f"{supabase_url}/rest/v1/{pg_table}?id=in.({id_list})", headers=headers, method="DELETE"
-    )
-    with urllib.request.urlopen(req) as resp:
-        resp.read()
-
-
-def supabase_replace_month(supabase_url, service_role_key, pg_table, unique_cols, rows, dry_run):
-    """Upsert never deletes rows absent from the new batch, so a renamed or
-    dropped entity (confirmed the hard way: NPCI silently renamed 'FamApp' to
-    'FamApp by Trio' between syncs) leaves a stale orphaned row behind forever.
-    Upsert first (safe, additive - matches the create-before-delete rule used for
-    Airtable), then delete anything left over for that month whose natural key
-    isn't in the fresh batch."""
-    if not rows:
-        return
-    month_val = rows[0]["month"]
-    if dry_run:
-        print(f"  [dry-run] Supabase: would replace all {pg_table} rows for {month_val}")
-        return
-    supabase_upsert(supabase_url, service_role_key, pg_table, unique_cols, rows, dry_run=False)
-
-    fresh_keys = {tuple(r.get(c) for c in unique_cols) for r in rows}
-    existing = supabase_get(
-        supabase_url, service_role_key, pg_table, ["id"] + unique_cols, f"month=eq.{month_val}"
-    )
-    stale_ids = [r["id"] for r in existing if tuple(r.get(c) for c in unique_cols) not in fresh_keys]
-    supabase_delete_by_ids(supabase_url, service_role_key, pg_table, stale_ids)
-    if stale_ids:
-        print(f"  Supabase: removed {len(stale_ids)} stale row(s) for {month_val} (renamed/dropped entities)")
+    STATEWISE_JSON_DIR.mkdir(parents=True, exist_ok=True)
+    with open(STATEWISE_JSON_DIR / f"{month}.json", "w") as f:
+        json.dump(rows, f, indent=2)
+    months = sorted(p.stem for p in STATEWISE_JSON_DIR.glob("*.json") if p.stem != "index")
+    with open(STATEWISE_JSON_DIR / "index.json", "w") as f:
+        json.dump(months, f, indent=2)
+    print(f"  Geography: wrote {len(rows)} row(s) to public/statewise-historical/{month}.json")
 
 
 def to_pg_rows(field_rows):
@@ -771,30 +611,17 @@ def main():
             only = set(arg.split("=", 1)[1].split(",")) if "=" in arg else None
     domains = {k: v for k, v in DOMAINS.items() if only is None or k in only}
 
-    env = load_env(PROJECT_DIR / ".env")
-    airtable_token = env.get("AIRTABLE_TOKEN")
-    supabase_url = env.get("SUPABASE_URL", "").rstrip("/")
-    service_role_key = env.get("SUPABASE_SERVICE_ROLE_KEY")
-    if not (airtable_token and supabase_url and service_role_key):
-        sys.exit("Missing AIRTABLE_TOKEN, SUPABASE_URL, or SUPABASE_SERVICE_ROLE_KEY in .env")
-
-    with open(PROJECT_DIR / "supabase" / "airtable_schema.json") as f:
-        airtable_schema = json.load(f)
-    base_id = airtable_schema["baseId"]
-
     with sync_playwright() as p:
         browser = p.chromium.launch()
         page = browser.new_page(user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36")
 
-        for key, (airtable_name, pg_table, unique_cols, fetch_fn, kind) in domains.items():
-            print(f"Fetching {airtable_name}...")
-            table_id = airtable_schema["tables"][airtable_name]
+        for key, (label, pg_table, unique_cols, fetch_fn, kind) in domains.items():
+            print(f"Fetching {label}...")
 
             if kind == "single":
                 fields = fetch_fn(page)
                 print(f"  Found {fields['Month']}")
-                airtable_upsert_single_row(base_id, table_id, airtable_token, fields, dry_run)
-                supabase_upsert(supabase_url, service_role_key, pg_table, unique_cols, to_pg_rows([fields]), dry_run)
+                json_store.upsert_single(pg_table, unique_cols, to_pg_rows([fields])[0], dry_run)
 
             elif kind == "multi":
                 rows = fetch_fn(page)
@@ -804,23 +631,22 @@ def main():
                 name_field = NAME_FIELDS.get(key)
                 if name_field:
                     target_month = rows[0]["Month"]
-                    known_names = supabase_distinct_values(
-                        supabase_url, service_role_key, pg_table, unique_cols[0], exclude_filter=f"month=neq.{target_month}"
-                    )
+                    known_names = json_store.distinct_values(pg_table, unique_cols[0], "month", target_month)
                     rows = normalize_names(rows, name_field, known_names)
                 print(f"  Found {len(rows)} row(s) for {rows[0]['Month']}")
-                airtable_replace_month_rows(base_id, table_id, airtable_token, rows, dry_run)
-                supabase_replace_month(supabase_url, service_role_key, pg_table, unique_cols, to_pg_rows(rows), dry_run)
+                if key == "statewise":
+                    write_statewise_json(to_pg_rows(rows), dry_run)
+                else:
+                    json_store.replace_for_key(pg_table, "month", rows[0]["Month"], to_pg_rows(rows), dry_run)
 
             elif kind == "circulars":
                 rows = fetch_circulars(page, years=[2025, 2026])
                 print(f"  Found {len(rows)} circular(s)")
-                airtable_replace_all_circulars(base_id, table_id, airtable_token, rows, dry_run)
-                supabase_upsert(supabase_url, service_role_key, pg_table, unique_cols, to_pg_rows(rows), dry_run)
+                json_store.upsert_many(pg_table, unique_cols, to_pg_rows(rows), dry_run)
 
         browser.close()
 
-    print("Done. (P2P/P2M Transactions not included - NPCI's own site currently errors on that tab; still hand-entered via Airtable.)")
+    print("Done. (P2P/P2M Transactions not included - NPCI's own site currently errors on that tab; hand-edit public/data/p2p_p2m.json when new figures are available.)")
 
 
 if __name__ == "__main__":

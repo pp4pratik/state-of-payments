@@ -1,0 +1,402 @@
+[
+  {
+    "remitter_bank": "State Bank of India",
+    "month": "2026-05-01",
+    "registrations_mn": 25.581597,
+    "approved_pct": 95.32,
+    "bd_pct": 4.44,
+    "td_pct": 0.24
+  },
+  {
+    "remitter_bank": "Bank of Baroda",
+    "month": "2026-05-01",
+    "registrations_mn": 7.640684,
+    "approved_pct": 95.66,
+    "bd_pct": 4.15,
+    "td_pct": 0.19
+  },
+  {
+    "remitter_bank": "Punjab National Bank",
+    "month": "2026-05-01",
+    "registrations_mn": 6.53089,
+    "approved_pct": 93.27,
+    "bd_pct": 4.95,
+    "td_pct": 1.78
+  },
+  {
+    "remitter_bank": "HDFC Bank",
+    "month": "2026-05-01",
+    "registrations_mn": 6.268054,
+    "approved_pct": 97.0,
+    "bd_pct": 2.99,
+    "td_pct": 0.01
+  },
+  {
+    "remitter_bank": "Airtel Payments Bank",
+    "month": "2026-05-01",
+    "registrations_mn": 6.178792,
+    "approved_pct": 92.09,
+    "bd_pct": 7.41,
+    "td_pct": 0.5
+  },
+  {
+    "remitter_bank": "Union Bank of India",
+    "month": "2026-05-01",
+    "registrations_mn": 5.763805,
+    "approved_pct": 95.65,
+    "bd_pct": 4.09,
+    "td_pct": 0.26
+  },
+  {
+    "remitter_bank": "India Post Payments Bank",
+    "month": "2026-05-01",
+    "registrations_mn": 5.35019,
+    "approved_pct": 92.38,
+    "bd_pct": 4.16,
+    "td_pct": 3.46
+  },
+  {
+    "remitter_bank": "Kotak Mahindra Bank",
+    "month": "2026-05-01",
+    "registrations_mn": 4.952875,
+    "approved_pct": 95.29,
+    "bd_pct": 4.71,
+    "td_pct": 0.0
+  },
+  {
+    "remitter_bank": "Canara Bank",
+    "month": "2026-05-01",
+    "registrations_mn": 4.457752,
+    "approved_pct": 90.21,
+    "bd_pct": 9.72,
+    "td_pct": 0.07
+  },
+  {
+    "remitter_bank": "Axis Bank",
+    "month": "2026-05-01",
+    "registrations_mn": 3.23698,
+    "approved_pct": 97.11,
+    "bd_pct": 2.87,
+    "td_pct": 0.02
+  },
+  {
+    "remitter_bank": "Indian Bank",
+    "month": "2026-05-01",
+    "registrations_mn": 3.232964,
+    "approved_pct": 96.44,
+    "bd_pct": 3.21,
+    "td_pct": 0.35
+  },
+  {
+    "remitter_bank": "Bank Of India",
+    "month": "2026-05-01",
+    "registrations_mn": 2.9137,
+    "approved_pct": 96.32,
+    "bd_pct": 3.65,
+    "td_pct": 0.03
+  },
+  {
+    "remitter_bank": "ICICI Bank",
+    "month": "2026-05-01",
+    "registrations_mn": 2.809409,
+    "approved_pct": 97.61,
+    "bd_pct": 2.37,
+    "td_pct": 0.03
+  },
+  {
+    "remitter_bank": "Central Bank of India",
+    "month": "2026-05-01",
+    "registrations_mn": 2.097097,
+    "approved_pct": 93.89,
+    "bd_pct": 5.76,
+    "td_pct": 0.35
+  },
+  {
+    "remitter_bank": "Fino Payments Bank Limited",
+    "month": "2026-05-01",
+    "registrations_mn": 1.773236,
+    "approved_pct": 94.53,
+    "bd_pct": 5.34,
+    "td_pct": 0.13
+  },
+  {
+    "remitter_bank": "Indian Overseas Bank",
+    "month": "2026-05-01",
+    "registrations_mn": 1.688103,
+    "approved_pct": 92.59,
+    "bd_pct": 5.5,
+    "td_pct": 1.91
+  },
+  {
+    "remitter_bank": "UCO Bank",
+    "month": "2026-05-01",
+    "registrations_mn": 1.645249,
+    "approved_pct": 96.02,
+    "bd_pct": 3.87,
+    "td_pct": 0.11
+  },
+  {
+    "remitter_bank": "Federal Bank",
+    "month": "2026-05-01",
+    "registrations_mn": 1.218556,
+    "approved_pct": 96.24,
+    "bd_pct": 3.76,
+    "td_pct": 0.0
+  },
+  {
+    "remitter_bank": "Indusind Bank",
+    "month": "2026-05-01",
+    "registrations_mn": 1.212822,
+    "approved_pct": 95.82,
+    "bd_pct": 4.13,
+    "td_pct": 0.05
+  },
+  {
+    "remitter_bank": "Bank of Maharashtra",
+    "month": "2026-05-01",
+    "registrations_mn": 1.046542,
+    "approved_pct": 90.92,
+    "bd_pct": 2.77,
+    "td_pct": 6.31
+  },
+  {
+    "remitter_bank": "IDBI Bank",
+    "month": "2026-05-01",
+    "registrations_mn": 0.903867,
+    "approved_pct": 97.47,
+    "bd_pct": 2.51,
+    "td_pct": 0.02
+  },
+  {
+    "remitter_bank": "Jio Payments Bank Ltd",
+    "month": "2026-05-01",
+    "registrations_mn": 0.774316,
+    "approved_pct": 94.01,
+    "bd_pct": 5.98,
+    "td_pct": 0.01
+  },
+  {
+    "remitter_bank": "NSDL Payments Bank",
+    "month": "2026-05-01",
+    "registrations_mn": 0.611223,
+    "approved_pct": 91.4,
+    "bd_pct": 3.72,
+    "td_pct": 4.88
+  },
+  {
+    "remitter_bank": "Karnataka Bank",
+    "month": "2026-05-01",
+    "registrations_mn": 0.551692,
+    "approved_pct": 96.33,
+    "bd_pct": 3.36,
+    "td_pct": 0.3
+  },
+  {
+    "remitter_bank": "IDFC First Bank",
+    "month": "2026-05-01",
+    "registrations_mn": 0.53671,
+    "approved_pct": 97.07,
+    "bd_pct": 2.93,
+    "td_pct": 0.0
+  },
+  {
+    "remitter_bank": "Jammu and Kashmir Bank",
+    "month": "2026-05-01",
+    "registrations_mn": 0.475208,
+    "approved_pct": 97.31,
+    "bd_pct": 2.69,
+    "td_pct": 0.0
+  },
+  {
+    "remitter_bank": "Yes Bank",
+    "month": "2026-05-01",
+    "registrations_mn": 0.459752,
+    "approved_pct": 94.83,
+    "bd_pct": 4.81,
+    "td_pct": 0.36
+  },
+  {
+    "remitter_bank": "AU Small Finance Bank",
+    "month": "2026-05-01",
+    "registrations_mn": 0.443035,
+    "approved_pct": 96.09,
+    "bd_pct": 3.89,
+    "td_pct": 0.02
+  },
+  {
+    "remitter_bank": "Slice Small Finance Bank Ltd",
+    "month": "2026-05-01",
+    "registrations_mn": 0.407297,
+    "approved_pct": 97.74,
+    "bd_pct": 2.26,
+    "td_pct": 0.0
+  },
+  {
+    "remitter_bank": "Rajasthan Gramin Bank",
+    "month": "2026-05-01",
+    "registrations_mn": 0.38718,
+    "approved_pct": 96.84,
+    "bd_pct": 3.16,
+    "td_pct": 0.0
+  },
+  {
+    "remitter_bank": "Punjab and Sind Bank",
+    "month": "2026-05-01",
+    "registrations_mn": 0.342159,
+    "approved_pct": 96.54,
+    "bd_pct": 3.43,
+    "td_pct": 0.03
+  },
+  {
+    "remitter_bank": "Karur Vysya Bank",
+    "month": "2026-05-01",
+    "registrations_mn": 0.328836,
+    "approved_pct": 94.51,
+    "bd_pct": 5.46,
+    "td_pct": 0.03
+  },
+  {
+    "remitter_bank": "Ujjivan Small Finance Bank Limited",
+    "month": "2026-05-01",
+    "registrations_mn": 0.274989,
+    "approved_pct": 88.37,
+    "bd_pct": 11.63,
+    "td_pct": 0.0
+  },
+  {
+    "remitter_bank": "Karnataka Grameena Bank",
+    "month": "2026-05-01",
+    "registrations_mn": 0.26679,
+    "approved_pct": 90.78,
+    "bd_pct": 9.22,
+    "td_pct": 0.0
+  },
+  {
+    "remitter_bank": "South Indian Bank",
+    "month": "2026-05-01",
+    "registrations_mn": 0.257792,
+    "approved_pct": 96.78,
+    "bd_pct": 3.22,
+    "td_pct": 0.0
+  },
+  {
+    "remitter_bank": "Andhra Pradesh Grameena Bank",
+    "month": "2026-05-01",
+    "registrations_mn": 0.199322,
+    "approved_pct": 94.48,
+    "bd_pct": 5.39,
+    "td_pct": 0.13
+  },
+  {
+    "remitter_bank": "City Union Bank Ltd",
+    "month": "2026-05-01",
+    "registrations_mn": 0.196279,
+    "approved_pct": 94.31,
+    "bd_pct": 5.48,
+    "td_pct": 0.21
+  },
+  {
+    "remitter_bank": "Tamilnad Mercantile Bank Ltd",
+    "month": "2026-05-01",
+    "registrations_mn": 0.182244,
+    "approved_pct": 97.42,
+    "bd_pct": 2.58,
+    "td_pct": 0.0
+  },
+  {
+    "remitter_bank": "Kerala Gramin Bank",
+    "month": "2026-05-01",
+    "registrations_mn": 0.177094,
+    "approved_pct": 94.57,
+    "bd_pct": 5.43,
+    "td_pct": 0.0
+  },
+  {
+    "remitter_bank": "Maharashtra Gramin Bank",
+    "month": "2026-05-01",
+    "registrations_mn": 0.166202,
+    "approved_pct": 96.94,
+    "bd_pct": 3.06,
+    "td_pct": 0.0
+  },
+  {
+    "remitter_bank": "Uttar Pradesh Gramin Bank",
+    "month": "2026-05-01",
+    "registrations_mn": 0.156673,
+    "approved_pct": 95.28,
+    "bd_pct": 2.34,
+    "td_pct": 2.38
+  },
+  {
+    "remitter_bank": "Equitas Small Finance Bank Ltd",
+    "month": "2026-05-01",
+    "registrations_mn": 0.125641,
+    "approved_pct": 96.99,
+    "bd_pct": 3.01,
+    "td_pct": 0.0
+  },
+  {
+    "remitter_bank": "Bandhan Bank",
+    "month": "2026-05-01",
+    "registrations_mn": 0.124758,
+    "approved_pct": 95.75,
+    "bd_pct": 2.02,
+    "td_pct": 2.23
+  },
+  {
+    "remitter_bank": "DBS Bank India Limited",
+    "month": "2026-05-01",
+    "registrations_mn": 0.122707,
+    "approved_pct": 98.89,
+    "bd_pct": 1.11,
+    "td_pct": 0.0
+  },
+  {
+    "remitter_bank": "Saraswat Bank",
+    "month": "2026-05-01",
+    "registrations_mn": 0.121026,
+    "approved_pct": 76.74,
+    "bd_pct": 23.26,
+    "td_pct": 0.0
+  },
+  {
+    "remitter_bank": "Telangana Grameena Bank",
+    "month": "2026-05-01",
+    "registrations_mn": 0.11138,
+    "approved_pct": 96.39,
+    "bd_pct": 3.61,
+    "td_pct": 0.0
+  },
+  {
+    "remitter_bank": "Chhattisgarh Rajya Gramin Bank",
+    "month": "2026-05-01",
+    "registrations_mn": 0.093655,
+    "approved_pct": 96.54,
+    "bd_pct": 3.46,
+    "td_pct": 0.0
+  },
+  {
+    "remitter_bank": "Jana Small Finance Bank Ltd",
+    "month": "2026-05-01",
+    "registrations_mn": 0.0829,
+    "approved_pct": 94.84,
+    "bd_pct": 5.16,
+    "td_pct": 0.0
+  },
+  {
+    "remitter_bank": "RBL Bank Limited",
+    "month": "2026-05-01",
+    "registrations_mn": 0.078438,
+    "approved_pct": 97.76,
+    "bd_pct": 2.24,
+    "td_pct": 0.0
+  },
+  {
+    "remitter_bank": "Standard Chartered",
+    "month": "2026-05-01",
+    "registrations_mn": 0.077912,
+    "approved_pct": 99.69,
+    "bd_pct": 0.31,
+    "td_pct": 0.0
+  }
+]

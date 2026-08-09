@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
-    "@supabase/supabase-js": "^2.109.0",
     "@tanstack/react-query": "^5.101.4",
     "@tanstack/react-router": "^1.170.18",
     "chart.js": "^4.5.1",
