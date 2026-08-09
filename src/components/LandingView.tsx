@@ -1,8 +1,12 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { ArrowRight, Moon, Play, Sun } from 'lucide-react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useGSAP } from '@gsap/react'
 import { useMonthlyTrend } from '../lib/queries'
 import { useLiveCounter } from '../lib/useLiveCounter'
 import { crNum } from '../lib/format'
+import '../lib/gsapSetup'
 import '../landing.css'
 
 const TICKER_ITEMS = ['UPI', 'AUTOPAY', 'RTGS', 'NEFT', 'IMPS', 'RBI CARDS', 'CIRCULARS', 'GEOGRAPHY']
@@ -12,10 +16,44 @@ function secondsInMonth(monthIso: string): number {
   return new Date(y, m, 0).getDate() * 86400
 }
 
+// Tilts `el` toward the pointer in 3D (rotateX/Y) and springs back to flat on
+// leave - needs `perspective` set on the element's parent to read as depth.
+function attachTilt(el: HTMLElement): () => void {
+  const rotX = gsap.quickTo(el, 'rotationX', { duration: 0.5, ease: 'power3.out' })
+  const rotY = gsap.quickTo(el, 'rotationY', { duration: 0.5, ease: 'power3.out' })
+  const lift = gsap.quickTo(el, 'y', { duration: 0.5, ease: 'power3.out' })
+
+  const onMove = (e: MouseEvent) => {
+    const r = el.getBoundingClientRect()
+    const px = (e.clientX - r.left) / r.width - 0.5
+    const py = (e.clientY - r.top) / r.height - 0.5
+    rotY(px * 14)
+    rotX(py * -14)
+    lift(-4)
+  }
+  const onLeave = () => {
+    rotX(0)
+    rotY(0)
+    lift(0)
+  }
+
+  el.addEventListener('mousemove', onMove)
+  el.addEventListener('mouseleave', onLeave)
+  return () => {
+    el.removeEventListener('mousemove', onMove)
+    el.removeEventListener('mouseleave', onLeave)
+  }
+}
+
 export function LandingView({ onEnter }: { onEnter: () => void }) {
   const [theme, setTheme] = useState<'light' | 'dark'>('light')
   const [startedAt] = useState(() => Date.now())
   const trend = useMonthlyTrend()
+  const containerRef = useRef<HTMLDivElement>(null)
+  const heroContentRef = useRef<HTMLDivElement>(null)
+  const heroTitleRef = useRef<HTMLHeadingElement>(null)
+  const heroGridRef = useRef<HTMLDivElement>(null)
+  const statsGridRef = useRef<HTMLDivElement>(null)
 
   const latest = trend.data && trend.data.length > 0 ? trend.data[trend.data.length - 1] : null
   const secs = latest ? secondsInMonth(latest.month) : 0
@@ -25,8 +63,62 @@ export function LandingView({ onEnter }: { onEnter: () => void }) {
   const vol = useLiveCounter(volRate, startedAt)
   const val = useLiveCounter(valRateCr, startedAt)
 
+  useGSAP(
+    () => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+      // Hero entrance: the headline gets a 3D flip up (rotationX), everything
+      // else around it fades and rises in behind it.
+      if (heroTitleRef.current) {
+        gsap.from(heroTitleRef.current, {
+          opacity: 0,
+          y: 46,
+          rotationX: -55,
+          transformOrigin: '50% 100%',
+          duration: 0.9,
+          ease: 'power3.out',
+        })
+      }
+      if (heroContentRef.current) {
+        const rest = heroContentRef.current.querySelectorAll(':scope > *:not(h1)')
+        gsap.from(rest, { opacity: 0, y: 22, duration: 0.6, stagger: 0.09, ease: 'power2.out', delay: 0.25 })
+      }
+
+      // Hairline grid drifts slower than the page scrolls, reading as a background layer.
+      if (heroGridRef.current) {
+        gsap.to(heroGridRef.current, {
+          yPercent: 18,
+          ease: 'none',
+          scrollTrigger: { trigger: heroGridRef.current, scrub: true },
+        })
+      }
+
+      // Stat cards rise in as a group once scrolled into view.
+      if (statsGridRef.current) {
+        gsap.from(statsGridRef.current.children, {
+          opacity: 0,
+          y: 28,
+          duration: 0.55,
+          stagger: 0.08,
+          ease: 'power2.out',
+          scrollTrigger: { trigger: statsGridRef.current, start: 'top 85%' },
+        })
+      }
+    },
+    { scope: containerRef },
+  )
+
+  // Per-card mouse-tilt: imperative DOM listeners, so cleaned up separately from
+  // the declarative tweens above (useGSAP's context revert doesn't remove these).
+  useGSAP(() => {
+    if (!statsGridRef.current || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const cards = [...statsGridRef.current.querySelectorAll<HTMLElement>('.landing-stat-card')]
+    const cleanups = cards.map(attachTilt)
+    return () => cleanups.forEach((fn) => fn())
+  })
+
   return (
-    <div className="landing" data-theme={theme}>
+    <div className="landing" data-theme={theme} ref={containerRef}>
       <nav className="landing-nav">
         <span className="landing-wordmark">
           <span className="dot" />
@@ -49,13 +141,13 @@ export function LandingView({ onEnter }: { onEnter: () => void }) {
       </nav>
 
       <header className="landing-hero">
-        <div className="landing-hero-grid" aria-hidden="true" />
-        <div className="landing-hero-content">
+        <div className="landing-hero-grid" aria-hidden="true" ref={heroGridRef} />
+        <div className="landing-hero-content" ref={heroContentRef}>
           <p className="landing-eyebrow">
             <span className="dot" />
             Live · straight from NPCI &amp; RBI
           </p>
-          <h1 className="landing-h1">
+          <h1 className="landing-h1" ref={heroTitleRef}>
             Every rupee,
             <span className="accent">tracked live.</span>
           </h1>
@@ -98,7 +190,7 @@ export function LandingView({ onEnter }: { onEnter: () => void }) {
           </p>
           <h2 className="landing-h2">The rails never sleep.</h2>
         </div>
-        <div className="landing-stats-grid">
+        <div className="landing-stats-grid" ref={statsGridRef}>
           <div className="landing-stat-card">
             <p className="landing-stat-label">UPI payments since you opened this page</p>
             <p className="landing-stat-value">{Math.floor(vol.count).toLocaleString('en-IN')}</p>

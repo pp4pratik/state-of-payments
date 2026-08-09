@@ -12,6 +12,7 @@ import { Footer } from './Footer'
 import { downloadCSV } from '../lib/csv'
 import { CsvButton } from './CsvButton'
 import { aposLabel, crNum, fmtPct, fullLabel, mnToCr, mom, rupees, shortLabel, yoy } from '../lib/format'
+import { chartGridColor } from '../lib/chartTheme'
 
 const APP_COLORS: Record<string, string> = {
   PhonePe: '#F5A524',
@@ -77,6 +78,7 @@ export function UpiView() {
 }
 
 function TrendSection({ months, mVol, mVal }: { months: string[]; mVol: number[]; mVal: number[] }) {
+  const { theme } = useDashboard()
   const [rawOpen, setRawOpen] = useState(false)
   const labels = months.map(shortLabel)
   const latestMomPct = mom(mVol, mVol.length - 1)
@@ -171,7 +173,7 @@ function TrendSection({ months, mVol, mVal }: { months: string[]; mVol: number[]
                 y: {
                   position: 'left',
                   title: { display: true, text: 'Volume (Cr)', font: { size: 11 } },
-                  grid: { color: 'rgba(255,255,255,0.06)' },
+                  grid: { color: chartGridColor(theme) },
                   ticks: { callback: (v) => Number(v).toLocaleString('en-IN') },
                 },
                 y1: {
@@ -504,6 +506,7 @@ function GeographySection({
 }
 
 function AppTrendSection({ appStats, idx, metric }: { appStats: AppStatsAll; idx: number; metric: 'volume' | 'value' }) {
+  const { theme } = useDashboard()
   const [rawOpen, setRawOpen] = useState(false)
   const top5 = Object.keys(appStats.byApp)
     .sort((a, b) => appStats.byApp[b].vol[idx] - appStats.byApp[a].vol[idx])
@@ -544,7 +547,7 @@ function AppTrendSection({ appStats, idx, metric }: { appStats: AppStatsAll; idx
               maintainAspectRatio: false,
               scales: {
                 x: { grid: { display: false } },
-                y: { title: { display: true, text: metric === 'volume' ? 'Volume (Cr)' : 'Value (₹ Cr)', font: { size: 11 } }, grid: { color: 'rgba(255,255,255,0.06)' } },
+                y: { title: { display: true, text: metric === 'volume' ? 'Volume (Cr)' : 'Value (₹ Cr)', font: { size: 11 } }, grid: { color: chartGridColor(theme) } },
               },
               plugins: { legend: { display: true, position: 'bottom', labels: { boxWidth: 10, font: { size: 11 } } } },
             }}
@@ -586,6 +589,7 @@ function AppTrendSection({ appStats, idx, metric }: { appStats: AppStatsAll; idx
 }
 
 function TicketSection({ appStats, idx, monthLabel }: { appStats: AppStatsAll; idx: number; monthLabel: string }) {
+  const { theme } = useDashboard()
   const names = Object.keys(appStats.byApp).filter((n) => appStats.byApp[n].vol[idx] > 0)
   const ticket = (n: string) => appStats.byApp[n].val[idx] / mnToCr(appStats.byApp[n].vol[idx])!
   const order = [...names].sort((a, b) => ticket(b) - ticket(a))
@@ -610,7 +614,7 @@ function TicketSection({ appStats, idx, monthLabel }: { appStats: AppStatsAll; i
             options={{
               responsive: true,
               maintainAspectRatio: false,
-              scales: { x: { grid: { display: false } }, y: { grid: { color: 'rgba(255,255,255,0.06)' }, title: { display: true, text: '₹ per transaction', font: { size: 11 } } } },
+              scales: { x: { grid: { display: false } }, y: { grid: { color: chartGridColor(theme) }, title: { display: true, text: '₹ per transaction', font: { size: 11 } } } },
               plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => `₹${Number(c.raw).toLocaleString('en-IN')}` } } },
             }}
           />

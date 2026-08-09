@@ -2,10 +2,12 @@ import { useState } from 'react'
 import { Bar } from 'react-chartjs-2'
 import { AlertTriangle, Gauge, Landmark, Repeat, ShieldAlert, ShieldCheck, TrendingDown, Wallet, Zap } from 'lucide-react'
 import { useAutoPayExecutions, useAutoPayExecutionsByPsp, useAutoPayRegistrations, useAutoPayRegistrationsByBank } from '../lib/queries'
+import { useDashboard } from '../lib/DashboardContext'
 import { Footer } from './Footer'
 import { downloadCSV } from '../lib/csv'
 import { CsvButton } from './CsvButton'
 import { crNum, fullLabel, mnToCr } from '../lib/format'
+import { chartGridColor } from '../lib/chartTheme'
 import { useCountUp } from '../lib/useCountUp'
 
 // NPCI Circular OC-151 / OC-151A (AFA limit enhancement for UPI AutoPay): the
@@ -25,6 +27,7 @@ const AUTOPAY_MCC_LIMITS = [
 ]
 
 export function AutoPayView() {
+  const { theme } = useDashboard()
   const [mode, setMode] = useState<'registration' | 'execution'>('registration')
 
   const registrations = useAutoPayRegistrations()
@@ -127,8 +130,8 @@ export function AutoPayView() {
     responsive: true,
     maintainAspectRatio: false,
     scales: horizontal
-      ? { x: { grid: { color: 'rgba(255,255,255,0.06)' }, title: { display: true, text: 'Crore', font: { size: 11 } } }, y: { grid: { display: false } } }
-      : { x: { grid: { display: false } }, y: { grid: { color: 'rgba(255,255,255,0.06)' }, title: { display: true, text: 'Crore', font: { size: 11 } } } },
+      ? { x: { grid: { color: chartGridColor(theme) }, title: { display: true, text: 'Crore', font: { size: 11 } } }, y: { grid: { display: false } } }
+      : { x: { grid: { display: false } }, y: { grid: { color: chartGridColor(theme) }, title: { display: true, text: 'Crore', font: { size: 11 } } } },
     plugins: {
       legend: { display: true, position: 'top' as const, labels: { boxWidth: 12, font: { size: 11 } } },
       tooltip: { callbacks: { label: (c: { dataset: { label?: string }; raw: unknown }) => `${c.dataset.label}: ${c.raw == null ? '—' : Number(c.raw).toFixed(2) + ' Cr'}` } },

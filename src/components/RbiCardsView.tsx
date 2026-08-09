@@ -7,6 +7,7 @@ import { Footer } from './Footer'
 import { downloadCSV } from '../lib/csv'
 import { CsvButton } from './CsvButton'
 import { fullLabel, rbiCountToCr, rbiValueToCr, shortLabel } from '../lib/format'
+import { chartGridColor } from '../lib/chartTheme'
 
 const RBI_CHANNELS = [
   { key: 'credit_pos', label: 'Credit card — PoS', side: 'credit', spend: true },
@@ -34,7 +35,7 @@ function sideTotal(row: RbiCardsRow, side: 'credit' | 'debit', field: 'vol' | 'v
 }
 
 export function RbiCardsView() {
-  const { selectedMonth } = useDashboard()
+  const { selectedMonth, theme } = useDashboard()
   const rbiCards = useRbiCardsAll()
 
   if (rbiCards.isPending) return <p className="section-note">Loading…</p>
@@ -120,7 +121,7 @@ export function RbiCardsView() {
                 maintainAspectRatio: false,
                 scales: {
                   x: { grid: { display: false } },
-                  y: { position: 'left', title: { display: true, text: 'ATMs & CRMs (Cr)', font: { size: 11 } }, grid: { color: 'rgba(255,255,255,0.06)' } },
+                  y: { position: 'left', title: { display: true, text: 'ATMs & CRMs (Cr)', font: { size: 11 } }, grid: { color: chartGridColor(theme) } },
                   y1: { position: 'right', title: { display: true, text: 'PoS / Micro ATMs (Cr)', font: { size: 11 } }, grid: { display: false } },
                 },
                 plugins: { legend: { display: true, position: 'bottom', labels: { boxWidth: 10, font: { size: 11 } } } },
@@ -156,7 +157,7 @@ export function RbiCardsView() {
                 maintainAspectRatio: false,
                 scales: {
                   x: { grid: { display: false } },
-                  y: { position: 'left', title: { display: true, text: 'Credit cards (Cr)', font: { size: 11 } }, grid: { color: 'rgba(255,255,255,0.06)' } },
+                  y: { position: 'left', title: { display: true, text: 'Credit cards (Cr)', font: { size: 11 } }, grid: { color: chartGridColor(theme) } },
                   y1: { position: 'right', title: { display: true, text: 'Debit cards (Cr)', font: { size: 11 } }, grid: { display: false } },
                 },
                 plugins: { legend: { display: true, position: 'bottom', labels: { boxWidth: 10, font: { size: 11 } } } },

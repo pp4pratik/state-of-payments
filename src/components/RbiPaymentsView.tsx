@@ -7,6 +7,7 @@ import { Footer } from './Footer'
 import { downloadCSV } from '../lib/csv'
 import { CsvButton } from './CsvButton'
 import { fullLabel, lakhToCr, shortLabel } from '../lib/format'
+import { chartGridColor } from '../lib/chartTheme'
 import { RbiPaymentsFlatTable, type FlatMetaEntry } from './RbiPaymentsFlatTable'
 
 const RAILS = [
@@ -93,7 +94,7 @@ const INFRA_META: [key: string, label: string, depth: 0 | 1][] = [
 ]
 
 export function RbiPaymentsView() {
-  const { metric, selectedMonth } = useDashboard()
+  const { metric, selectedMonth, theme } = useDashboard()
   const rbiPayments = useRbiPaymentsAll()
 
   if (rbiPayments.isPending) return <p className="section-note">Loading…</p>
@@ -183,7 +184,7 @@ export function RbiPaymentsView() {
                   interaction: { mode: 'index', intersect: false },
                   scales: {
                     x: { grid: { display: false }, ticks: { autoSkip: true, maxTicksLimit: 9, font: { size: 10 } } },
-                    y: { title: { display: true, text: metric === 'volume' ? 'Volume (Cr)' : 'Value (₹ Cr)', font: { size: 11 } }, grid: { color: 'rgba(255,255,255,0.06)' } },
+                    y: { title: { display: true, text: metric === 'volume' ? 'Volume (Cr)' : 'Value (₹ Cr)', font: { size: 11 } }, grid: { color: chartGridColor(theme) } },
                   },
                   plugins: { legend: { display: true, position: 'bottom', labels: { boxWidth: 10, font: { size: 11 } } } },
                 }}
