@@ -3,7 +3,7 @@ import type { ScriptableContext } from 'chart.js'
 import { Chart as ChartJSComponent, Line, Bar } from 'react-chartjs-2'
 import { LineChart, MapPin, PieChart, Receipt, ShoppingBag, TrendingDown, TrendingUp, Trophy } from 'lucide-react'
 import { useDashboard } from '../lib/DashboardContext'
-import { useAppStatsAll, useMerchantCategoriesAll, useMonthlyTrend, useP2pAll, useStatewiseAll, type AppStatsAll } from '../lib/queries'
+import { useAppStatsAll, useMerchantCategoriesAll, useMonthlyTrend, useP2pAll, useStatewiseAll, type AppStatsAll, type P2pRow } from '../lib/queries'
 import { SectionHead } from './SectionHead'
 import { LiveCounter } from './LiveCounter'
 import { IndiaMap } from './IndiaMap'
@@ -59,7 +59,7 @@ export function UpiView() {
       <LeaderboardSection appStats={appStats.data} idx={idx} metric={metric} monthLabel={fullLabel(appStats.data.months[idx])} />
       <div className="section">
         <div className="row-2">
-          <P2pCard p2p={p2p.data} idx={idx} monthLabel={fullLabel(appStats.data.months[idx])} />
+          <P2pCard p2p={p2p.data} month={appStats.data.months[idx]} monthLabel={fullLabel(appStats.data.months[idx])} />
           <CategoriesCard categories={categories.data[appStats.data.months[idx]] ?? []} metric={metric} monthLabel={fullLabel(appStats.data.months[idx])} />
         </div>
       </div>
@@ -304,8 +304,13 @@ function LeaderboardSection({
   )
 }
 
-function P2pCard({ p2p, idx, monthLabel }: { p2p: { p2p_volume_mn: number; p2p_value_cr: number; p2m_volume_mn: number; p2m_value_cr: number }[]; idx: number; monthLabel: string }) {
-  const d = p2p[idx]
+function P2pCard({ p2p, month, monthLabel }: { p2p: P2pRow[]; month: string; monthLabel: string }) {
+  // p2p_p2m only has data from Jan 2025 onward (hand-entered - NPCI's own site 500s
+  // on this tab) while App Stats goes back further, so this can't assume the two
+  // arrays line up index-for-index - look up the matching month explicitly instead
+  // of indexing by position (confirmed the hard way: positional indexing showed
+  // wrong-month data for most of 2025 and nothing at all for H2 2025 onward).
+  const d = p2p.find((r) => r.month === month)
   if (!d) return null
   const totalVol = d.p2p_volume_mn + d.p2m_volume_mn
   const totalVal = d.p2p_value_cr + d.p2m_value_cr
