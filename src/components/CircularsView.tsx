@@ -103,7 +103,7 @@ export function CircularsView() {
 
       <Footer
         sources={[{ href: 'https://www.npci.org.in/circulars/upi', label: 'NPCI — UPI Circulars & Notifications' }]}
-        disclaimer="Operating circulars issued by NPCI for UPI, synced via Airtable."
+        disclaimer="Operating circulars issued by NPCI for UPI."
       />
     </div>
   )
