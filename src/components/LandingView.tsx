@@ -93,7 +93,15 @@ export function LandingView({ onEnter, onExplore }: { onEnter: () => void; onExp
         })
       }
 
-      // Stat cards rise in as a group once scrolled into view.
+      // Stat cards rise in shortly after mount, not gated on scroll - a
+      // ScrollTrigger reveal here left these cards permanently stuck invisible
+      // under any renderer that paints below-the-fold content without actually
+      // scrolling the page (confirmed: gstack's own full-page screenshot tool
+      // does this - it composites beyond the viewport without ever resizing it
+      // or moving scroll position, so the trigger's "has the user scrolled
+      // there" condition is never met and nothing is left to fire it). This is
+      // real information, not decorative filler, so it shouldn't have a code
+      // path where it never becomes visible.
       if (statsGridRef.current) {
         gsap.from(statsGridRef.current.children, {
           opacity: 0,
@@ -101,7 +109,7 @@ export function LandingView({ onEnter, onExplore }: { onEnter: () => void; onExp
           duration: 0.55,
           stagger: 0.08,
           ease: 'power2.out',
-          scrollTrigger: { trigger: statsGridRef.current, start: 'top 85%' },
+          delay: 0.4,
         })
       }
     },
