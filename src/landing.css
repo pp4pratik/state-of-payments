@@ -114,8 +114,13 @@
 .landing-cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 18px; }
 .landing-hint { font-size: 12.5px; color: var(--land-ink-soft); }
 .landing-hint button {
-  background: none; border: none; padding: 0; margin: 0; color: var(--land-red); font-weight: 600; cursor: pointer;
+  background: none; border: none; color: var(--land-red); font-weight: 600; cursor: pointer;
   font-size: inherit; text-decoration: underline; text-underline-offset: 3px; font-family: inherit;
+  /* Visual size stays tied to the small hint text, but the tap target doesn't -
+     negative margin cancels the padding so the surrounding paragraph's layout
+     is untouched while the actual hit area grows to a real touch target. */
+  padding: 15px 4px; margin: -15px -4px;
+  display: inline-block;
 }
 
 /* ---------- Ticker ---------- */
