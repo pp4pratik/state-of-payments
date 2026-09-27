@@ -26,7 +26,12 @@ delete-then-recreate for that month instead of per-row matching - simpler and sa
 than trying to match entity identity row-by-row across runs.
 
 Usage:
-    python3 scripts/fetch_npci_data.py [--dry-run] [--only monthly_trend,app_stats,...]
+    python3 scripts/fetch_npci_data.py [--dry-run] [--only monthly_trend,app_stats,...] [--month=YYYY-MM]
+
+--month=YYYY-MM backfills one specific past month instead of chasing whatever is
+newest (for a month that got skipped because no run happened that month) - applies
+to every "multi" domain (all of them except Monthly Trend, which only ever exposes
+its single most recent row and can't be targeted this way).
 
 Requires: pip install playwright && playwright install chromium
 """
@@ -104,10 +109,26 @@ def fetch_all_pages(page, url_builder, page_size=100):
     return all_rows
 
 
-def find_latest_month(page, url_for_month, months_back=6):
+def find_latest_month(page, url_for_month, months_back=6, target=None):
     """Walks backward from the current month until one returns real data. NPCI's
     ecosystem-statistics tabs (app stats, categories, geography, member performance)
-    consistently lag ~1 month behind the headline monthly-trend figure."""
+    consistently lag ~1 month behind the headline monthly-trend figure.
+
+    If `target` (year, month_abbr) is given, fetch exactly that month instead of
+    scanning - used to backfill a month that was skipped (no run happened that
+    month) rather than always chasing whatever is newest."""
+    if target is not None:
+        y, month_abbr_val = target
+        data, status = fetch_json(page, url_for_month(y, month_abbr_val))
+        if data and data.get("status") == 200:
+            payload = data["data"]
+            rows = payload.get("results")
+            if isinstance(rows, dict):
+                rows = rows.get("tableDetail", [])
+            if rows:
+                return y, month_abbr_val, data
+        sys.exit(f"No data found for {month_abbr_val} {y} (target backfill month)")
+
     today = date.today()
     y, m = today.year, today.month
     for _ in range(months_back):
@@ -146,14 +167,14 @@ def fetch_monthly_trend(page):
     }
 
 
-def fetch_app_stats(page):
+def fetch_app_stats(page, target=None):
     def url_for(y, m):
         return (
             f"https://www.npci.org.in/api/ecosystem-statistics/get-statistics"
             f"?product_name=UPI&tab_name=upi-apps&year={y}&month={m}&page_no=1&sort_by=asc&size=1&locale=en"
         )
 
-    y, m, _ = find_latest_month(page, url_for)
+    y, m, _ = find_latest_month(page, url_for, target=target)
     rows = fetch_all_pages(
         page,
         lambda pn, sz: (
@@ -175,14 +196,14 @@ def fetch_app_stats(page):
     return out
 
 
-def fetch_merchant_categories(page):
+def fetch_merchant_categories(page, target=None):
     def url_for(y, m):
         return (
             f"https://www.npci.org.in/api/ecosystem-statistics/get-statistics"
             f"?product_name=UPI&tab_name=mcc&year={y}&month={m}&page_no=1&sort_by=asc&size=1&locale=en"
         )
 
-    y, m, _ = find_latest_month(page, url_for)
+    y, m, _ = find_latest_month(page, url_for, target=target)
     rows = fetch_all_pages(
         page,
         lambda pn, sz: (
@@ -221,14 +242,14 @@ def fetch_merchant_categories(page):
     return out
 
 
-def fetch_statewise(page):
+def fetch_statewise(page, target=None):
     def url_for(y, m):
         return (
             f"https://www.npci.org.in/api/ecosystem-statistics/get-statistics"
             f"?product_name=UPI&tab_name=statewise-statistic&year={y}&month={m}&page_no=1&sort_by=asc&size=1&locale=en"
         )
 
-    y, m, _ = find_latest_month(page, url_for)
+    y, m, _ = find_latest_month(page, url_for, target=target)
     rows = fetch_all_pages(
         page,
         lambda pn, sz: (
@@ -302,7 +323,7 @@ def fetch_statewise(page):
     return out
 
 
-def fetch_psp_member_performance(page):
+def fetch_psp_member_performance(page, target=None):
     def url_for_direction(direction):
         def url_for(y, m):
             return (
@@ -315,7 +336,7 @@ def fetch_psp_member_performance(page):
 
     out = []
     for direction, label in [("remitter", "Remitter"), ("beneficiary", "Beneficiary")]:
-        y, m, _ = find_latest_month(page, url_for_direction(direction))
+        y, m, _ = find_latest_month(page, url_for_direction(direction), target=target)
         rows = fetch_all_pages(
             page,
             lambda pn, sz, direction=direction, y=y, m=m: (
@@ -341,7 +362,7 @@ def fetch_psp_member_performance(page):
     return out
 
 
-def fetch_autopay_registrations(page):
+def fetch_autopay_registrations(page, target=None):
     def url_for(y, m):
         return (
             f"https://www.npci.org.in/api/ecosystem-statistics/get-statistics"
@@ -349,7 +370,7 @@ def fetch_autopay_registrations(page):
             f"&page_no=1&sort_by=asc&size=1&locale=en"
         )
 
-    y, m, _ = find_latest_month(page, url_for)
+    y, m, _ = find_latest_month(page, url_for, target=target)
     rows = fetch_all_pages(
         page,
         lambda pn, sz: (
@@ -371,7 +392,7 @@ def fetch_autopay_registrations(page):
     ]
 
 
-def fetch_autopay_executions(page):
+def fetch_autopay_executions(page, target=None):
     def url_for(y, m):
         return (
             f"https://www.npci.org.in/api/ecosystem-statistics/get-statistics"
@@ -379,7 +400,7 @@ def fetch_autopay_executions(page):
             f"&page_no=1&sort_by=asc&size=1&locale=en"
         )
 
-    y, m, _ = find_latest_month(page, url_for)
+    y, m, _ = find_latest_month(page, url_for, target=target)
     rows = fetch_all_pages(
         page,
         lambda pn, sz: (
@@ -401,7 +422,7 @@ def fetch_autopay_executions(page):
     ]
 
 
-def fetch_autopay_registrations_by_bank(page):
+def fetch_autopay_registrations_by_bank(page, target=None):
     """Same 'Top 50 Remitter Banks' tab as fetch_autopay_executions, but
     type_name=reg instead of execution - NPCI's Mandate Registration view of
     that tab, broken down by remitter bank rather than by payer PSP."""
@@ -413,7 +434,7 @@ def fetch_autopay_registrations_by_bank(page):
             f"&page_no=1&sort_by=asc&size=1&locale=en"
         )
 
-    y, m, _ = find_latest_month(page, url_for)
+    y, m, _ = find_latest_month(page, url_for, target=target)
     rows = fetch_all_pages(
         page,
         lambda pn, sz: (
@@ -435,7 +456,7 @@ def fetch_autopay_registrations_by_bank(page):
     ]
 
 
-def fetch_autopay_executions_by_psp(page):
+def fetch_autopay_executions_by_psp(page, target=None):
     """NPCI's 'PSP Wise execution' tab - the payer-PSP-level counterpart to
     fetch_autopay_executions (which is remitter-bank-level)."""
 
@@ -446,7 +467,7 @@ def fetch_autopay_executions_by_psp(page):
             f"&page_no=1&sort_by=asc&size=1&locale=en"
         )
 
-    y, m, _ = find_latest_month(page, url_for)
+    y, m, _ = find_latest_month(page, url_for, target=target)
     rows = fetch_all_pages(
         page,
         lambda pn, sz: (
@@ -589,6 +610,19 @@ DOMAINS = {
     "circulars": ("Circulars", "circulars", ["fy", "ref"], None, "circulars"),
 }
 
+# Domains that are a "latest snapshot" rather than a real time series - the app has
+# only ever shown one month for these (see queries.ts's useAutoPay*/usePspMemberPerformance),
+# so a new run must wipe whatever month was there before, not just the incoming
+# month like replace_for_key does for genuine multi-month tables (app_stats,
+# merchant_categories, statewise).
+LATEST_ONLY_DOMAINS = {
+    "psp_member_performance",
+    "autopay_registrations",
+    "autopay_executions",
+    "autopay_registrations_by_bank",
+    "autopay_executions_by_psp",
+}
+
 # Domains with a free-text entity name prone to NPCI's spelling drift ("PhonePe" vs
 # "Phone Pe") that would otherwise fork a time series. Not applied to Merchant
 # Categories (MCC is a stable numeric code, not a name) or Statewise (state/district
@@ -606,9 +640,13 @@ NAME_FIELDS = {
 def main():
     dry_run = "--dry-run" in sys.argv
     only = None
+    month_target = None
     for arg in sys.argv:
         if arg.startswith("--only"):
             only = set(arg.split("=", 1)[1].split(",")) if "=" in arg else None
+        if arg.startswith("--month="):
+            y_str, m_str = arg.split("=", 1)[1].split("-")
+            month_target = (int(y_str), MONTH_ABBR[int(m_str) - 1])
     domains = {k: v for k, v in DOMAINS.items() if only is None or k in only}
 
     with sync_playwright() as p:
@@ -624,7 +662,7 @@ def main():
                 json_store.upsert_single(pg_table, unique_cols, to_pg_rows([fields])[0], dry_run)
 
             elif kind == "multi":
-                rows = fetch_fn(page)
+                rows = fetch_fn(page, target=month_target)
                 if not rows:
                     print("  No rows found, skipping")
                     continue
@@ -636,6 +674,8 @@ def main():
                 print(f"  Found {len(rows)} row(s) for {rows[0]['Month']}")
                 if key == "statewise":
                     write_statewise_json(to_pg_rows(rows), dry_run)
+                elif key in LATEST_ONLY_DOMAINS:
+                    json_store.replace_all(pg_table, to_pg_rows(rows), dry_run)
                 else:
                     json_store.replace_for_key(pg_table, "month", rows[0]["Month"], to_pg_rows(rows), dry_run)
 

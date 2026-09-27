@@ -8,7 +8,12 @@ Writes straight to the static JSON files under public/data/ that the live site
 reads - see src/lib/queries.ts and scripts/json_store.py.
 
 Usage:
-    python3 scripts/fetch_rbi_data.py [--dry-run]
+    python3 scripts/fetch_rbi_data.py [--dry-run] [--month=YYYY-MM]
+
+--month=YYYY-MM backfills one specific past month (for one that got skipped)
+instead of always taking the newest report - RBI keeps every past month's report
+as its own immutable page, so this just walks the listing page's ids backward
+until it finds the one whose own heading matches the target month.
 """
 
 import json
@@ -68,18 +73,32 @@ RBI_CARDS_FIELDS = [
 ]
 
 
-def fetch_rbi_cards():
+def fetch_rbi_cards(target=None):
     listing = fetch_url("https://rbi.org.in/Scripts/ATMView.aspx")
     ids = [int(m) for m in re.findall(r"ATMView\.aspx\?atmid=(\d+)", listing)]
     if not ids:
         sys.exit("Could not find any atmid links on the ATM statistics listing page")
-    latest_id = max(ids)
 
-    html = fetch_url(f"https://rbi.org.in/Scripts/ATMView.aspx?atmid={latest_id}")
-    m = re.search(r"for the Month of ([A-Za-z]+) (\d{4})", html)
-    if not m:
-        sys.exit("Could not find the month heading on the RBI Cards detail page - page layout may have changed")
-    month_iso = month_label_to_iso(m.group(1), m.group(2))
+    # Each atmid page is a single immutable month's report - target=None just
+    # takes the newest; a target walks backward until that exact month's page
+    # is found (bounded by how many recent ids the listing page exposes).
+    candidate_ids = [max(ids)] if target is None else sorted(ids, reverse=True)
+    html = month_iso = None
+    for cid in candidate_ids:
+        candidate_html = fetch_url(f"https://rbi.org.in/Scripts/ATMView.aspx?atmid={cid}")
+        m = re.search(r"for the Month of ([A-Za-z]+) (\d{4})", candidate_html)
+        if not m:
+            continue
+        candidate_month = month_label_to_iso(m.group(1), m.group(2))
+        if target is None or candidate_month == target:
+            html, month_iso = candidate_html, candidate_month
+            break
+    if html is None:
+        sys.exit(
+            "Could not find the month heading on the RBI Cards detail page - page layout may have changed"
+            if target is None
+            else f"Could not find an RBI Cards report for {target} among the listed ids"
+        )
 
     rows = parse_table_rows(html)
     total_rows = [r for r in rows if r[0] == "Total"]
@@ -206,18 +225,33 @@ def match_rows(rows, expected, numbers_per_row):
     return results
 
 
-def fetch_rbi_payments():
+def fetch_rbi_payments(target=None):
     listing = fetch_url("https://rbi.org.in/Scripts/PSIUserView.aspx")
     ids = [int(m) for m in re.findall(r"PSIUserView\.aspx\?Id=(\d+)", listing)]
     if not ids:
         sys.exit("Could not find any Id links on the Payment System Indicators listing page")
-    latest_id = max(ids)
 
-    html = fetch_url(f"https://rbi.org.in/Scripts/PSIUserView.aspx?Id={latest_id}")
-    m = re.search(r"Payment System Indicators - ([A-Za-z]+) (\d{4})", html)
-    if not m:
-        sys.exit("Could not find the month heading on the RBI Payments detail page - page layout may have changed")
-    month_iso = month_label_to_iso(m.group(1), m.group(2))
+    # Each report's own "current month" column (index 3, see below) is whatever
+    # month that report page is headed with - so backfilling a past month just
+    # means finding the report Id headed with that month, not re-deriving it from
+    # a later report's earlier columns.
+    candidate_ids = [max(ids)] if target is None else sorted(ids, reverse=True)
+    html = month_iso = None
+    for cid in candidate_ids:
+        candidate_html = fetch_url(f"https://rbi.org.in/Scripts/PSIUserView.aspx?Id={cid}")
+        m = re.search(r"Payment System Indicators - ([A-Za-z]+) (\d{4})", candidate_html)
+        if not m:
+            continue
+        candidate_month = month_label_to_iso(m.group(1), m.group(2))
+        if target is None or candidate_month == target:
+            html, month_iso = candidate_html, candidate_month
+            break
+    if html is None:
+        sys.exit(
+            "Could not find the month heading on the RBI Payments detail page - page layout may have changed"
+            if target is None
+            else f"Could not find an RBI Payments report for {target} among the listed ids"
+        )
 
     rows = parse_table_rows(html)
     volval = match_rows(rows, RBIP_VOLVAL_ROWS, numbers_per_row=8)
@@ -239,15 +273,20 @@ def snake(label):
 
 def main():
     dry_run = "--dry-run" in sys.argv
+    month_target = None
+    for arg in sys.argv:
+        if arg.startswith("--month="):
+            y_str, m_str = arg.split("=", 1)[1].split("-")
+            month_target = f"{int(y_str)}-{int(m_str):02d}-01"
 
     print("Fetching RBI Cards (Bank-wise ATM/POS/Card Statistics)...")
-    cards_fields = fetch_rbi_cards()
+    cards_fields = fetch_rbi_cards(target=month_target)
     print(f"  Found {cards_fields['Month']} ({len(cards_fields) - 1} metrics)")
     cards_row = {snake(k) if k != "Month" else "month": v for k, v in cards_fields.items()}
     json_store.upsert_single("rbi_cards", ["month"], cards_row, dry_run)
 
     print("Fetching RBI Payments (Payment System Indicators)...")
-    payments_fields = fetch_rbi_payments()
+    payments_fields = fetch_rbi_payments(target=month_target)
     print(f"  Found {payments_fields['Month']} ({len(payments_fields) - 1} metrics)")
     payments_row = {snake(k) if k != "Month" else "month": v for k, v in payments_fields.items()}
     json_store.upsert_single("rbi_payments", ["month"], payments_row, dry_run)

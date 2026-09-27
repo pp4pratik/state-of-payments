@@ -1,0 +1,47 @@
+name: Fetch Monthly Data
+
+on:
+  schedule:
+    - cron: '0 6 5 * *'   # 06:00 UTC on the 5th of every month
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fetch-monthly-data
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python deps
+        run: pip install playwright
+
+      - name: Install Chromium
+        run: playwright install --with-deps chromium
+
+      - name: Fetch RBI data (RBI Cards + RBI Payments)
+        run: python3 scripts/fetch_rbi_data.py
+
+      - name: Fetch NPCI data (everything else except P2P/P2M)
+        run: python3 scripts/fetch_npci_data.py
+
+      - name: Commit and push if data changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/data public/statewise-historical
+          if git diff --cached --quiet; then
+            echo "No new data this run."
+          else
+            git commit -m "chore: automated monthly data refresh ($(date -u +%Y-%m))"
+            git push
+          fi

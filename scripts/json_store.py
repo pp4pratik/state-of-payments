@@ -74,6 +74,21 @@ def replace_for_key(name, key_col, key_val, new_rows, dry_run=False):
     print(f"  Wrote {len(new_rows)} row(s) to public/data/{name}.json ({len(rows)} total)")
 
 
+def replace_all(name, new_rows, dry_run=False):
+    """Wholesale replace a file's contents - for tables that are a snapshot of
+    "whatever NPCI currently calls latest" rather than a real time series (AutoPay
+    Registrations/Executions x2, PSP Member Performance). replace_for_key only
+    clears rows matching the NEW month, so when NPCI's own "latest" rolls from
+    month N to N+1, month N's rows would otherwise sit there forever, un-scoped
+    to any key the next run touches - confirmed the hard way: two real monthly
+    runs landing on different months doubled every one of these tables."""
+    if dry_run:
+        print(f"  [dry-run] would replace all {len(new_rows)} row(s) in data/{name}.json")
+        return
+    _write(name, new_rows)
+    print(f"  Wrote {len(new_rows)} row(s) to public/data/{name}.json (replacing prior contents)")
+
+
 def upsert_many(name, unique_cols, new_rows, dry_run=False):
     if not new_rows:
         return

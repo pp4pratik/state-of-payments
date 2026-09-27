@@ -30,9 +30,17 @@ pip install playwright && playwright install chromium          # one-time setup
 python3 scripts/fetch_npci_data.py                              # everything else
 python3 scripts/fetch_npci_data.py --dry-run
 python3 scripts/fetch_npci_data.py --only=circulars,app_stats   # just specific domains
+
+# Backfill one specific past month that got skipped (no run happened that month),
+# instead of always chasing whatever NPCI/RBI currently call "latest":
+python3 scripts/fetch_rbi_data.py --month=2026-07
+python3 scripts/fetch_npci_data.py --month=2026-07 --only=app_stats,merchant_categories,statewise,psp_member_performance,autopay_registrations,autopay_executions,autopay_registrations_by_bank,autopay_executions_by_psp
+# (Monthly Trend can't be targeted this way - its endpoint only ever exposes the single most recent row.)
 ```
 
 Neither script needs a `.env` — both scrape their source directly and write straight to `public/data/`.
+
+Both scripts also run automatically via `.github/workflows/fetch-data.yml` — a scheduled GitHub Action on the 5th of every month (`workflow_dispatch` also lets you trigger it manually from the Actions tab). On success it commits any changed files under `public/data/` and `public/statewise-historical/` straight to `main`, which kicks off `deploy.yml` and republishes the site. On failure (most likely: NPCI's Akamai bot-protection blocking GitHub's datacenter IP range, which doesn't happen from a normal residential/office IP) the job just fails — GitHub emails the repo owner automatically, no separate alerting needed. If that happens, run `fetch_npci_data.py` manually from a local machine instead. P2P/P2M has no automated source either way (see below) and still needs a hand-edit to `public/data/p2p_p2m.json` regardless of this workflow.
 
 ## Architecture
 
@@ -48,7 +56,8 @@ Neither script needs a `.env` — both scrape their source directly and write st
 - `scripts/fetch_rbi_data.py` — scrapes rbi.org.in for RBI Cards and RBI Payments. No bot protection there, plain HTTP + HTML table parsing works.
 - `scripts/json_store.py` — shared write helpers both scripts use, replicating the semantics the old Supabase pipeline relied on:
   - `upsert_single(name, unique_cols, row)` — one row per natural key (the single-row-per-month tables).
-  - `replace_for_key(name, key_col, key_val, new_rows)` — delete every row matching one column's value (typically a month), then insert the fresh batch. This is what makes a renamed or dropped entity not leave a stale row behind — a pure upsert can't do that.
+  - `replace_for_key(name, key_col, key_val, new_rows)` — delete every row matching one column's value (typically a month), then insert the fresh batch. This is what makes a renamed or dropped entity not leave a stale row behind — a pure upsert can't do that. Only correct for genuine time-series tables, where every other month's rows should stay untouched.
+  - `replace_all(name, new_rows)` — wipe the whole file, then write the fresh batch. Used for the 5 tables that are a "latest snapshot" rather than a time series (`psp_member_performance`, `autopay_registrations`, `autopay_executions`, `autopay_registrations_by_bank`, `autopay_executions_by_psp` — see `LATEST_ONLY_DOMAINS` in `fetch_npci_data.py`). `queries.ts`'s hooks for these just take `data[0]?.month` and sort everything with no month filter, so if `replace_for_key` were used here instead, a month that NPCI's "latest" rolls past would sit there forever un-scoped to anything the next run touches, silently doubling the file (confirmed the hard way while backfilling a skipped month — two real months ended up sorted together as if they were one).
   - `upsert_many(name, unique_cols, new_rows)` — merge by unique key, no scoping (used for circulars, which aren't month-scoped).
   - `distinct_values(name, column, exclude_key_col, exclude_key_val)` — reads back existing values of a column, used for entity-name normalization below. **Always exclude the month currently being written** from this query, or a bad spelling written in a previous run becomes its own "established" reference and self-perpetuates.
 - **Entity-name spelling drift**: NPCI's own entity-name spelling isn't stable month to month (e.g. "PhonePe" → "Phone Pe" for one month). `normalize_key`/`normalize_names` in `fetch_npci_data.py` snap an incoming name back to an already-established spelling (case/whitespace-insensitive match against every other month already in the JSON file) before it gets keyed by anything — otherwise a spelling hiccup silently forks a time series into two. This applies to `app_stats`, `psp_member_performance`, and all four AutoPay breakdown tables (see `NAME_FIELDS` in `fetch_npci_data.py`); not to Merchant Categories (MCC is a stable numeric code) or Geography (state/district names don't drift).
