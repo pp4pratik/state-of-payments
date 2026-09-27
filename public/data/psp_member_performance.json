@@ -2,458 +2,449 @@
   {
     "entity_name": "State Bank of India",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 6316.41,
-    "approved_pct": 91.07,
-    "bd_pct": 8.68,
-    "td_pct": 0.24
+    "month": "2026-08-01",
+    "volume_mn": 6845.842221,
+    "approved_pct": 90.78,
+    "bd_pct": 9.11,
+    "td_pct": 0.1
   },
   {
     "entity_name": "Bank of Baroda",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 1693.24,
-    "approved_pct": 86.69,
-    "bd_pct": 12.73,
-    "td_pct": 0.59
+    "month": "2026-08-01",
+    "volume_mn": 1831.426252,
+    "approved_pct": 86.18,
+    "bd_pct": 13.79,
+    "td_pct": 0.04
   },
   {
     "entity_name": "HDFC Bank Ltd.",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 1674.91,
-    "approved_pct": 93.23,
-    "bd_pct": 6.76,
-    "td_pct": 0.01
+    "month": "2026-08-01",
+    "volume_mn": 1786.328061,
+    "approved_pct": 93.07,
+    "bd_pct": 6.93,
+    "td_pct": 0.0
   },
   {
     "entity_name": "Union Bank of India",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 1482.26,
-    "approved_pct": 90.03,
-    "bd_pct": 9.86,
-    "td_pct": 0.12
+    "month": "2026-08-01",
+    "volume_mn": 1601.832921,
+    "approved_pct": 89.49,
+    "bd_pct": 10.32,
+    "td_pct": 0.2
   },
   {
     "entity_name": "Punjab National Bank",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 1386.96,
-    "approved_pct": 88.52,
-    "bd_pct": 10.64,
-    "td_pct": 0.85
+    "month": "2026-08-01",
+    "volume_mn": 1539.539118,
+    "approved_pct": 88.81,
+    "bd_pct": 11.08,
+    "td_pct": 0.11
   },
   {
     "entity_name": "Canara Bank",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 1184.48,
-    "approved_pct": 90.72,
+    "month": "2026-08-01",
+    "volume_mn": 1282.886433,
+    "approved_pct": 90.23,
     "bd_pct": 9.12,
-    "td_pct": 0.15
+    "td_pct": 0.65
   },
   {
     "entity_name": "Kotak Mahindra Bank",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 1134.44,
-    "approved_pct": 88.99,
-    "bd_pct": 11.0,
-    "td_pct": 0.01
+    "month": "2026-08-01",
+    "volume_mn": 1213.960245,
+    "approved_pct": 88.72,
+    "bd_pct": 11.26,
+    "td_pct": 0.02
   },
   {
     "entity_name": "Axis Bank Ltd.",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 1027.17,
-    "approved_pct": 93.24,
-    "bd_pct": 6.75,
-    "td_pct": 0.01
+    "month": "2026-08-01",
+    "volume_mn": 1071.072905,
+    "approved_pct": 92.81,
+    "bd_pct": 7.19,
+    "td_pct": 0.0
   },
   {
     "entity_name": "India Post Payments Bank Limited\u00a0",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 880.55,
-    "approved_pct": 82.0,
-    "bd_pct": 17.95,
-    "td_pct": 0.06
+    "month": "2026-08-01",
+    "volume_mn": 950.234819,
+    "approved_pct": 81.42,
+    "bd_pct": 18.44,
+    "td_pct": 0.13
   },
   {
     "entity_name": "Indian Bank",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 783.26,
-    "approved_pct": 88.52,
-    "bd_pct": 11.25,
-    "td_pct": 0.23
+    "month": "2026-08-01",
+    "volume_mn": 868.942048,
+    "approved_pct": 88.19,
+    "bd_pct": 11.47,
+    "td_pct": 0.34
   },
   {
     "entity_name": "ICICI Bank Ltd.",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 766.11,
-    "approved_pct": 95.22,
-    "bd_pct": 4.74,
-    "td_pct": 0.04
+    "month": "2026-08-01",
+    "volume_mn": 829.389043,
+    "approved_pct": 95.14,
+    "bd_pct": 4.83,
+    "td_pct": 0.03
   },
   {
     "entity_name": "Airtel Payments Bank Limited",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 743.43,
-    "approved_pct": 73.99,
-    "bd_pct": 25.85,
-    "td_pct": 0.17
+    "month": "2026-08-01",
+    "volume_mn": 804.875344,
+    "approved_pct": 73.3,
+    "bd_pct": 26.58,
+    "td_pct": 0.12
   },
   {
     "entity_name": "Bank Of India",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 736.01,
-    "approved_pct": 90.73,
-    "bd_pct": 8.96,
-    "td_pct": 0.31
+    "month": "2026-08-01",
+    "volume_mn": 791.934482,
+    "approved_pct": 90.62,
+    "bd_pct": 9.26,
+    "td_pct": 0.12
   },
   {
     "entity_name": "Indian Overseas Bank",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 439.77,
-    "approved_pct": 89.55,
-    "bd_pct": 9.42,
-    "td_pct": 1.03
+    "month": "2026-08-01",
+    "volume_mn": 483.833034,
+    "approved_pct": 90.29,
+    "bd_pct": 9.65,
+    "td_pct": 0.06
   },
   {
     "entity_name": "Central Bank of India",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 427.37,
-    "approved_pct": 87.59,
-    "bd_pct": 11.73,
-    "td_pct": 0.68
+    "month": "2026-08-01",
+    "volume_mn": 478.279993,
+    "approved_pct": 84.06,
+    "bd_pct": 13.6,
+    "td_pct": 2.34
   },
   {
     "entity_name": "UCO Bank",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 341.95,
-    "approved_pct": 87.57,
-    "bd_pct": 12.34,
-    "td_pct": 0.09
+    "month": "2026-08-01",
+    "volume_mn": 373.505414,
+    "approved_pct": 87.38,
+    "bd_pct": 12.49,
+    "td_pct": 0.14
   },
   {
     "entity_name": "Federal Bank Ltd.",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 291.75,
-    "approved_pct": 89.92,
-    "bd_pct": 10.04,
-    "td_pct": 0.03
+    "month": "2026-08-01",
+    "volume_mn": 312.603681,
+    "approved_pct": 89.64,
+    "bd_pct": 9.8,
+    "td_pct": 0.55
   },
   {
     "entity_name": "Fino Payments Bank Ltd.",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 279.67,
-    "approved_pct": 76.13,
-    "bd_pct": 23.33,
-    "td_pct": 0.54
-  },
-  {
-    "entity_name": "Bank of Maharashtra",
-    "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 258.36,
-    "approved_pct": 90.7,
-    "bd_pct": 8.96,
-    "td_pct": 0.33
+    "month": "2026-08-01",
+    "volume_mn": 303.469763,
+    "approved_pct": 76.37,
+    "bd_pct": 23.28,
+    "td_pct": 0.35
   },
   {
     "entity_name": "Indusind Bank Ltd.",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 254.5,
-    "approved_pct": 85.11,
-    "bd_pct": 14.82,
-    "td_pct": 0.07
+    "month": "2026-08-01",
+    "volume_mn": 275.943604,
+    "approved_pct": 84.64,
+    "bd_pct": 15.02,
+    "td_pct": 0.34
+  },
+  {
+    "entity_name": "Bank of Maharashtra",
+    "direction": "Remitter",
+    "month": "2026-08-01",
+    "volume_mn": 274.233912,
+    "approved_pct": 90.49,
+    "bd_pct": 9.45,
+    "td_pct": 0.06
   },
   {
     "entity_name": "IDBI Bank Ltd.",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 229.43,
-    "approved_pct": 91.3,
-    "bd_pct": 8.55,
-    "td_pct": 0.15
+    "month": "2026-08-01",
+    "volume_mn": 243.236917,
+    "approved_pct": 90.59,
+    "bd_pct": 9.21,
+    "td_pct": 0.19
   },
   {
     "entity_name": "Tri O Tech Solutions Private Limited",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 192.35,
+    "month": "2026-08-01",
+    "volume_mn": 219.489392,
     "approved_pct": 100.0,
     "bd_pct": 0.0,
     "td_pct": 0.0
-  },
-  {
-    "entity_name": "Yes Bank Ltd.",
-    "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 169.88,
-    "approved_pct": 91.98,
-    "bd_pct": 7.85,
-    "td_pct": 0.17
   },
   {
     "entity_name": "IDFC Bank Ltd.",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 164.31,
-    "approved_pct": 92.53,
-    "bd_pct": 7.42,
-    "td_pct": 0.05
+    "month": "2026-08-01",
+    "volume_mn": 180.558173,
+    "approved_pct": 92.63,
+    "bd_pct": 7.34,
+    "td_pct": 0.03
   },
   {
-    "entity_name": "Karnataka Bank",
+    "entity_name": "Yes Bank Ltd.",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 162.68,
-    "approved_pct": 90.01,
-    "bd_pct": 9.93,
-    "td_pct": 0.05
+    "month": "2026-08-01",
+    "volume_mn": 178.173167,
+    "approved_pct": 92.02,
+    "bd_pct": 7.88,
+    "td_pct": 0.1
+  },
+  {
+    "entity_name": "Karnataka Bank Ltd.",
+    "direction": "Remitter",
+    "month": "2026-08-01",
+    "volume_mn": 171.821945,
+    "approved_pct": 89.3,
+    "bd_pct": 10.56,
+    "td_pct": 0.14
   },
   {
     "entity_name": "The Jammu & Kashmir Bank Limited",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 121.65,
-    "approved_pct": 91.93,
-    "bd_pct": 7.97,
-    "td_pct": 0.1
+    "month": "2026-08-01",
+    "volume_mn": 134.160522,
+    "approved_pct": 92.34,
+    "bd_pct": 7.57,
+    "td_pct": 0.08
   },
   {
     "entity_name": "Karur Vysya Bank",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 108.75,
-    "approved_pct": 92.38,
-    "bd_pct": 7.46,
-    "td_pct": 0.16
+    "month": "2026-08-01",
+    "volume_mn": 117.080579,
+    "approved_pct": 92.19,
+    "bd_pct": 7.61,
+    "td_pct": 0.2
   },
   {
-    "entity_name": "JIO PAYMENTS BANK LTD",
+    "entity_name": "Slice Small Finance Bank Limited",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 102.76,
-    "approved_pct": 78.3,
-    "bd_pct": 21.57,
-    "td_pct": 0.14
+    "month": "2026-08-01",
+    "volume_mn": 111.853209,
+    "approved_pct": 94.25,
+    "bd_pct": 5.72,
+    "td_pct": 0.03
   },
   {
     "entity_name": "BANDHAN BANK LIMITED",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 100.63,
-    "approved_pct": 94.25,
-    "bd_pct": 5.58,
-    "td_pct": 0.17
-  },
-  {
-    "entity_name": "AU small Finance Bank",
-    "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 94.61,
-    "approved_pct": 86.13,
-    "bd_pct": 13.65,
-    "td_pct": 0.23
+    "month": "2026-08-01",
+    "volume_mn": 110.416792,
+    "approved_pct": 92.71,
+    "bd_pct": 6.7,
+    "td_pct": 0.59
   },
   {
     "entity_name": "Baroda U.P. Bank",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 93.81,
-    "approved_pct": 89.93,
-    "bd_pct": 6.43,
-    "td_pct": 3.65
+    "month": "2026-08-01",
+    "volume_mn": 109.671881,
+    "approved_pct": 88.6,
+    "bd_pct": 8.96,
+    "td_pct": 2.44
   },
   {
-    "entity_name": "Slice Small Finance Bank",
+    "entity_name": "AU small Finance Bank",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 90.55,
-    "approved_pct": 94.25,
-    "bd_pct": 5.71,
-    "td_pct": 0.04
+    "month": "2026-08-01",
+    "volume_mn": 104.430043,
+    "approved_pct": 85.48,
+    "bd_pct": 14.44,
+    "td_pct": 0.08
+  },
+  {
+    "entity_name": "JIO PAYMENTS BANK LTD",
+    "direction": "Remitter",
+    "month": "2026-08-01",
+    "volume_mn": 101.649976,
+    "approved_pct": 78.02,
+    "bd_pct": 21.64,
+    "td_pct": 0.34
   },
   {
     "entity_name": "The South Indian Bank Limited",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 84.02,
-    "approved_pct": 93.25,
-    "bd_pct": 6.67,
-    "td_pct": 0.08
+    "month": "2026-08-01",
+    "volume_mn": 91.450743,
+    "approved_pct": 92.98,
+    "bd_pct": 6.84,
+    "td_pct": 0.18
   },
   {
     "entity_name": "NSDL Payments Bank Limited",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 81.77,
-    "approved_pct": 75.17,
-    "bd_pct": 23.96,
-    "td_pct": 0.87
-  },
-  {
-    "entity_name": "Punjab and Sind Bank",
-    "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 72.31,
-    "approved_pct": 84.08,
-    "bd_pct": 12.81,
-    "td_pct": 3.11
+    "month": "2026-08-01",
+    "volume_mn": 85.056548,
+    "approved_pct": 75.87,
+    "bd_pct": 22.96,
+    "td_pct": 1.17
   },
   {
     "entity_name": "Rajasthan Marudhara Gramin Bank",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 69.82,
-    "approved_pct": 83.28,
-    "bd_pct": 15.2,
-    "td_pct": 1.52
+    "month": "2026-08-01",
+    "volume_mn": 78.463399,
+    "approved_pct": 83.38,
+    "bd_pct": 15.44,
+    "td_pct": 1.18
+  },
+  {
+    "entity_name": "Punjab and Sind Bank",
+    "direction": "Remitter",
+    "month": "2026-08-01",
+    "volume_mn": 76.938847,
+    "approved_pct": 85.18,
+    "bd_pct": 12.88,
+    "td_pct": 1.95
   },
   {
     "entity_name": "Tamilnad Mercantile Bank Limited",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 67.91,
-    "approved_pct": 90.39,
-    "bd_pct": 8.49,
-    "td_pct": 1.12
+    "month": "2026-08-01",
+    "volume_mn": 72.541164,
+    "approved_pct": 90.91,
+    "bd_pct": 8.73,
+    "td_pct": 0.36
   },
   {
     "entity_name": "UJJIVAN SMALL FINANCE BANK LIMITED",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 65.27,
-    "approved_pct": 86.18,
-    "bd_pct": 13.51,
-    "td_pct": 0.31
-  },
-  {
-    "entity_name": "City Union Bank",
-    "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 63.42,
-    "approved_pct": 91.38,
-    "bd_pct": 8.42,
-    "td_pct": 0.2
-  },
-  {
-    "entity_name": "Karnataka Gramin Bank",
-    "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 62.32,
-    "approved_pct": 87.17,
-    "bd_pct": 11.42,
-    "td_pct": 1.42
+    "month": "2026-08-01",
+    "volume_mn": 70.348319,
+    "approved_pct": 85.77,
+    "bd_pct": 14.02,
+    "td_pct": 0.21
   },
   {
     "entity_name": "KERALA GRAMIN BANK",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 61.2,
-    "approved_pct": 91.97,
-    "bd_pct": 7.1,
-    "td_pct": 0.92
+    "month": "2026-08-01",
+    "volume_mn": 68.614167,
+    "approved_pct": 91.87,
+    "bd_pct": 7.29,
+    "td_pct": 0.84
   },
   {
-    "entity_name": "TELANGANA GRAMEENA BANK",
+    "entity_name": "City Union Bank",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 57.9,
-    "approved_pct": 79.86,
-    "bd_pct": 14.07,
-    "td_pct": 6.07
+    "month": "2026-08-01",
+    "volume_mn": 67.953163,
+    "approved_pct": 91.23,
+    "bd_pct": 8.7,
+    "td_pct": 0.07
+  },
+  {
+    "entity_name": "Karnataka Gramin Bank",
+    "direction": "Remitter",
+    "month": "2026-08-01",
+    "volume_mn": 67.330569,
+    "approved_pct": 87.91,
+    "bd_pct": 11.86,
+    "td_pct": 0.23
   },
   {
     "entity_name": "CHAITANYA GODAVARI GRAMEENA BANK",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 51.04,
-    "approved_pct": 88.65,
-    "bd_pct": 11.22,
-    "td_pct": 0.14
+    "month": "2026-08-01",
+    "volume_mn": 57.575597,
+    "approved_pct": 89.33,
+    "bd_pct": 10.5,
+    "td_pct": 0.16
+  },
+  {
+    "entity_name": "TELANGANA GRAMEENA BANK",
+    "direction": "Remitter",
+    "month": "2026-08-01",
+    "volume_mn": 56.382922,
+    "approved_pct": 87.03,
+    "bd_pct": 12.4,
+    "td_pct": 0.57
   },
   {
     "entity_name": "Maharashtra Gramin Bank",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 44.47,
-    "approved_pct": 81.9,
-    "bd_pct": 15.1,
-    "td_pct": 3.0
+    "month": "2026-08-01",
+    "volume_mn": 45.874636,
+    "approved_pct": 84.4,
+    "bd_pct": 14.36,
+    "td_pct": 1.23
   },
   {
     "entity_name": "ESAF SMALL FINANCE BANK LTD",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 37.65,
-    "approved_pct": 94.55,
-    "bd_pct": 3.42,
-    "td_pct": 2.03
+    "month": "2026-08-01",
+    "volume_mn": 41.09294,
+    "approved_pct": 90.6,
+    "bd_pct": 8.63,
+    "td_pct": 0.77
   },
   {
     "entity_name": "Saraswat Co-operative Bank",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 34.51,
-    "approved_pct": 92.58,
-    "bd_pct": 6.34,
-    "td_pct": 1.08
-  },
-  {
-    "entity_name": "DBS Bank India Limited",
-    "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 31.84,
-    "approved_pct": 90.61,
-    "bd_pct": 9.33,
-    "td_pct": 0.05
+    "month": "2026-08-01",
+    "volume_mn": 36.432795,
+    "approved_pct": 92.75,
+    "bd_pct": 6.78,
+    "td_pct": 0.47
   },
   {
     "entity_name": "SARVA HARYANA GRAMIN BANK",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 30.99,
-    "approved_pct": 88.74,
-    "bd_pct": 9.62,
-    "td_pct": 1.64
+    "month": "2026-08-01",
+    "volume_mn": 33.228492,
+    "approved_pct": 87.53,
+    "bd_pct": 11.79,
+    "td_pct": 0.68
   },
   {
-    "entity_name": "Federal Bank Ltd.",
-    "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 362.31,
-    "approved_pct": 99.81,
-    "bd_pct": 0.18,
-    "td_pct": 0.01
+    "entity_name": "DBS Bank India Limited",
+    "direction": "Remitter",
+    "month": "2026-08-01",
+    "volume_mn": 33.149834,
+    "approved_pct": 90.28,
+    "bd_pct": 9.56,
+    "td_pct": 0.16
   },
   {
     "entity_name": "EQUITAS SMALL FINANCE BANK",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 29.99,
-    "approved_pct": 87.82,
-    "bd_pct": 11.73,
-    "td_pct": 0.45
+    "month": "2026-08-01",
+    "volume_mn": 31.340191,
+    "approved_pct": 86.76,
+    "bd_pct": 13.02,
+    "td_pct": 0.21
   },
   {
     "entity_name": "One Mobikwik Systems Limited",
     "direction": "Remitter",
-    "month": "2026-06-01",
-    "volume_mn": 27.63,
+    "month": "2026-08-01",
+    "volume_mn": 30.040117,
     "approved_pct": 100.0,
     "bd_pct": 0.0,
     "td_pct": 0.0
@@ -461,442 +452,451 @@
   {
     "entity_name": "Yes Bank Ltd.",
     "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 9375.26,
+    "month": "2026-08-01",
+    "volume_mn": 10002.580901,
     "approved_pct": 99.99,
     "bd_pct": 0.0,
-    "td_pct": 0.0
+    "td_pct": 0.01
   },
   {
     "entity_name": "Axis Bank Ltd.",
     "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 2384.43,
-    "approved_pct": 99.88,
-    "bd_pct": 0.12,
+    "month": "2026-08-01",
+    "volume_mn": 2483.836989,
+    "approved_pct": 99.85,
+    "bd_pct": 0.15,
     "td_pct": 0.0
   },
   {
     "entity_name": "State Bank of India",
     "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 2245.46,
-    "approved_pct": 99.59,
-    "bd_pct": 0.19,
-    "td_pct": 0.22
+    "month": "2026-08-01",
+    "volume_mn": 2440.226428,
+    "approved_pct": 99.75,
+    "bd_pct": 0.21,
+    "td_pct": 0.04
   },
   {
     "entity_name": "HDFC Bank Ltd.",
     "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 1081.79,
-    "approved_pct": 99.76,
-    "bd_pct": 0.23,
-    "td_pct": 0.01
+    "month": "2026-08-01",
+    "volume_mn": 1227.7143,
+    "approved_pct": 99.69,
+    "bd_pct": 0.29,
+    "td_pct": 0.02
   },
   {
     "entity_name": "Bank of Baroda",
     "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 615.44,
-    "approved_pct": 99.0,
-    "bd_pct": 0.48,
-    "td_pct": 0.52
+    "month": "2026-08-01",
+    "volume_mn": 649.871783,
+    "approved_pct": 99.61,
+    "bd_pct": 0.37,
+    "td_pct": 0.02
   },
   {
     "entity_name": "Punjab National Bank",
     "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 561.06,
-    "approved_pct": 98.37,
+    "month": "2026-08-01",
+    "volume_mn": 625.446946,
+    "approved_pct": 99.54,
     "bd_pct": 0.38,
-    "td_pct": 1.25
-  },
-  {
-    "entity_name": "Union Bank of India",
-    "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 543.66,
-    "approved_pct": 99.73,
-    "bd_pct": 0.14,
-    "td_pct": 0.13
-  },
-  {
-    "entity_name": "Canara Bank",
-    "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 516.05,
-    "approved_pct": 99.73,
-    "bd_pct": 0.2,
-    "td_pct": 0.06
+    "td_pct": 0.08
   },
   {
     "entity_name": "Airtel Payments Bank Limited",
     "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 502.3,
-    "approved_pct": 94.53,
-    "bd_pct": 5.4,
-    "td_pct": 0.07
+    "month": "2026-08-01",
+    "volume_mn": 592.795602,
+    "approved_pct": 95.69,
+    "bd_pct": 4.26,
+    "td_pct": 0.04
+  },
+  {
+    "entity_name": "Union Bank of India",
+    "direction": "Beneficiary",
+    "month": "2026-08-01",
+    "volume_mn": 586.319738,
+    "approved_pct": 99.69,
+    "bd_pct": 0.16,
+    "td_pct": 0.15
+  },
+  {
+    "entity_name": "Canara Bank",
+    "direction": "Beneficiary",
+    "month": "2026-08-01",
+    "volume_mn": 563.759425,
+    "approved_pct": 98.9,
+    "bd_pct": 0.3,
+    "td_pct": 0.79
   },
   {
     "entity_name": "Kotak Mahindra Bank",
     "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 459.42,
-    "approved_pct": 99.29,
+    "month": "2026-08-01",
+    "volume_mn": 502.927074,
+    "approved_pct": 99.26,
     "bd_pct": 0.7,
-    "td_pct": 0.01
+    "td_pct": 0.03
   },
   {
     "entity_name": "ICICI Bank Ltd.",
     "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 441.77,
-    "approved_pct": 99.57,
-    "bd_pct": 0.4,
-    "td_pct": 0.03
+    "month": "2026-08-01",
+    "volume_mn": 451.179094,
+    "approved_pct": 99.49,
+    "bd_pct": 0.46,
+    "td_pct": 0.05
   },
   {
     "entity_name": "India Post Payments Bank Limited\u00a0",
     "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 377.75,
-    "approved_pct": 99.1,
-    "bd_pct": 0.78,
-    "td_pct": 0.11
+    "month": "2026-08-01",
+    "volume_mn": 418.521053,
+    "approved_pct": 98.71,
+    "bd_pct": 1.09,
+    "td_pct": 0.19
+  },
+  {
+    "entity_name": "Federal Bank Ltd.",
+    "direction": "Beneficiary",
+    "month": "2026-08-01",
+    "volume_mn": 351.122581,
+    "approved_pct": 99.6,
+    "bd_pct": 0.24,
+    "td_pct": 0.16
   },
   {
     "entity_name": "Indian Bank",
     "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 310.22,
-    "approved_pct": 99.38,
-    "bd_pct": 0.4,
-    "td_pct": 0.22
+    "month": "2026-08-01",
+    "volume_mn": 347.964976,
+    "approved_pct": 99.5,
+    "bd_pct": 0.24,
+    "td_pct": 0.26
   },
   {
     "entity_name": "Bank Of India",
     "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 300.17,
-    "approved_pct": 98.77,
-    "bd_pct": 0.96,
-    "td_pct": 0.27
+    "month": "2026-08-01",
+    "volume_mn": 323.662484,
+    "approved_pct": 98.73,
+    "bd_pct": 1.18,
+    "td_pct": 0.09
   },
   {
     "entity_name": "Unity Small Finance Bank Limited",
     "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 232.38,
-    "approved_pct": 99.97,
-    "bd_pct": 0.01,
+    "month": "2026-08-01",
+    "volume_mn": 319.110452,
+    "approved_pct": 99.98,
+    "bd_pct": 0.0,
     "td_pct": 0.02
   },
   {
     "entity_name": "Indusind Bank Ltd.",
     "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 192.31,
-    "approved_pct": 99.43,
-    "bd_pct": 0.54,
-    "td_pct": 0.03
+    "month": "2026-08-01",
+    "volume_mn": 203.990134,
+    "approved_pct": 99.18,
+    "bd_pct": 0.71,
+    "td_pct": 0.12
   },
   {
     "entity_name": "Central Bank of India",
     "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 180.79,
-    "approved_pct": 98.57,
-    "bd_pct": 0.65,
-    "td_pct": 0.77
+    "month": "2026-08-01",
+    "volume_mn": 198.722242,
+    "approved_pct": 96.83,
+    "bd_pct": 1.38,
+    "td_pct": 1.79
   },
   {
     "entity_name": "Indian Overseas Bank",
     "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 178.92,
-    "approved_pct": 98.77,
-    "bd_pct": 0.42,
-    "td_pct": 0.81
+    "month": "2026-08-01",
+    "volume_mn": 194.766168,
+    "approved_pct": 99.38,
+    "bd_pct": 0.37,
+    "td_pct": 0.25
   },
   {
     "entity_name": "UCO Bank",
     "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 138.33,
-    "approved_pct": 99.61,
-    "bd_pct": 0.31,
-    "td_pct": 0.08
+    "month": "2026-08-01",
+    "volume_mn": 152.159326,
+    "approved_pct": 99.55,
+    "bd_pct": 0.28,
+    "td_pct": 0.17
   },
   {
     "entity_name": "NSDL Payments Bank Limited",
     "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 121.91,
-    "approved_pct": 96.97,
-    "bd_pct": 2.53,
-    "td_pct": 0.5
-  },
-  {
-    "entity_name": "Bank of Maharashtra",
-    "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 89.35,
-    "approved_pct": 98.54,
-    "bd_pct": 1.15,
-    "td_pct": 0.31
-  },
-  {
-    "entity_name": "IDBI Bank Ltd.",
-    "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 85.81,
-    "approved_pct": 99.28,
-    "bd_pct": 0.54,
-    "td_pct": 0.18
+    "month": "2026-08-01",
+    "volume_mn": 122.743063,
+    "approved_pct": 95.82,
+    "bd_pct": 3.54,
+    "td_pct": 0.64
   },
   {
     "entity_name": "Tri O Tech Solutions Private Limited",
     "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 85.17,
-    "approved_pct": 99.3,
-    "bd_pct": 0.69,
-    "td_pct": 0.01
+    "month": "2026-08-01",
+    "volume_mn": 98.188159,
+    "approved_pct": 98.85,
+    "bd_pct": 1.13,
+    "td_pct": 0.03
+  },
+  {
+    "entity_name": "Bank of Maharashtra",
+    "direction": "Beneficiary",
+    "month": "2026-08-01",
+    "volume_mn": 95.165877,
+    "approved_pct": 99.14,
+    "bd_pct": 0.53,
+    "td_pct": 0.32
   },
   {
     "entity_name": "Fino Payments Bank Ltd.",
     "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 81.62,
-    "approved_pct": 94.9,
-    "bd_pct": 4.54,
-    "td_pct": 0.56
+    "month": "2026-08-01",
+    "volume_mn": 91.109121,
+    "approved_pct": 93.15,
+    "bd_pct": 6.64,
+    "td_pct": 0.21
+  },
+  {
+    "entity_name": "IDBI Bank Ltd.",
+    "direction": "Beneficiary",
+    "month": "2026-08-01",
+    "volume_mn": 90.626262,
+    "approved_pct": 99.25,
+    "bd_pct": 0.52,
+    "td_pct": 0.22
   },
   {
     "entity_name": "JIO PAYMENTS BANK LTD",
     "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 79.95,
-    "approved_pct": 97.71,
-    "bd_pct": 2.15,
-    "td_pct": 0.14
+    "month": "2026-08-01",
+    "volume_mn": 80.266435,
+    "approved_pct": 97.55,
+    "bd_pct": 2.37,
+    "td_pct": 0.08
   },
   {
     "entity_name": "The Jammu & Kashmir Bank Limited",
     "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 67.57,
-    "approved_pct": 99.13,
-    "bd_pct": 0.83,
-    "td_pct": 0.04
-  },
-  {
-    "entity_name": "Karnataka Bank",
-    "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 64.88,
-    "approved_pct": 99.62,
-    "bd_pct": 0.28,
-    "td_pct": 0.1
+    "month": "2026-08-01",
+    "volume_mn": 74.323874,
+    "approved_pct": 99.18,
+    "bd_pct": 0.78,
+    "td_pct": 0.05
   },
   {
     "entity_name": "One Mobikwik Systems Limited",
     "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 61.79,
-    "approved_pct": 99.79,
+    "month": "2026-08-01",
+    "volume_mn": 73.445494,
+    "approved_pct": 99.85,
     "bd_pct": 0.01,
-    "td_pct": 0.2
+    "td_pct": 0.14
+  },
+  {
+    "entity_name": "Karnataka Bank Ltd.",
+    "direction": "Beneficiary",
+    "month": "2026-08-01",
+    "volume_mn": 69.153096,
+    "approved_pct": 99.32,
+    "bd_pct": 0.46,
+    "td_pct": 0.22
   },
   {
     "entity_name": "BANDHAN BANK LIMITED",
     "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 58.67,
-    "approved_pct": 99.59,
-    "bd_pct": 0.22,
-    "td_pct": 0.19
-  },
-  {
-    "entity_name": "Karur Vysya Bank",
-    "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 58.23,
-    "approved_pct": 99.64,
-    "bd_pct": 0.15,
-    "td_pct": 0.21
-  },
-  {
-    "entity_name": "RBL Bank Ltd.",
-    "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 56.62,
-    "approved_pct": 99.8,
-    "bd_pct": 0.09,
-    "td_pct": 0.11
+    "month": "2026-08-01",
+    "volume_mn": 64.039835,
+    "approved_pct": 99.2,
+    "bd_pct": 0.24,
+    "td_pct": 0.56
   },
   {
     "entity_name": "IDFC Bank Ltd.",
     "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 55.83,
-    "approved_pct": 98.74,
-    "bd_pct": 1.2,
-    "td_pct": 0.06
-  },
-  {
-    "entity_name": "The South Indian Bank Limited",
-    "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 51.37,
-    "approved_pct": 99.81,
-    "bd_pct": 0.16,
+    "month": "2026-08-01",
+    "volume_mn": 60.016621,
+    "approved_pct": 98.71,
+    "bd_pct": 1.26,
     "td_pct": 0.03
   },
   {
     "entity_name": "Baroda U.P. Bank",
     "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 48.71,
-    "approved_pct": 96.92,
-    "bd_pct": 0.34,
-    "td_pct": 2.74
+    "month": "2026-08-01",
+    "volume_mn": 57.071791,
+    "approved_pct": 97.66,
+    "bd_pct": 0.35,
+    "td_pct": 1.99
   },
   {
-    "entity_name": "Slice Small Finance Bank",
+    "entity_name": "The South Indian Bank Limited",
     "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 41.67,
-    "approved_pct": 92.51,
-    "bd_pct": 3.79,
-    "td_pct": 3.7
+    "month": "2026-08-01",
+    "volume_mn": 56.012053,
+    "approved_pct": 99.67,
+    "bd_pct": 0.2,
+    "td_pct": 0.13
   },
   {
-    "entity_name": "Tamilnad Mercantile Bank Limited",
+    "entity_name": "RBL Bank Ltd.",
     "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 41.63,
-    "approved_pct": 98.04,
-    "bd_pct": 0.79,
-    "td_pct": 1.18
+    "month": "2026-08-01",
+    "volume_mn": 55.663434,
+    "approved_pct": 99.82,
+    "bd_pct": 0.11,
+    "td_pct": 0.07
+  },
+  {
+    "entity_name": "Slice Small Finance Bank Limited",
+    "direction": "Beneficiary",
+    "month": "2026-08-01",
+    "volume_mn": 55.038482,
+    "approved_pct": 93.77,
+    "bd_pct": 6.18,
+    "td_pct": 0.05
+  },
+  {
+    "entity_name": "Karur Vysya Bank",
+    "direction": "Beneficiary",
+    "month": "2026-08-01",
+    "volume_mn": 51.518031,
+    "approved_pct": 99.73,
+    "bd_pct": 0.19,
+    "td_pct": 0.08
   },
   {
     "entity_name": "AU small Finance Bank",
     "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 39.82,
-    "approved_pct": 99.3,
-    "bd_pct": 0.54,
-    "td_pct": 0.16
+    "month": "2026-08-01",
+    "volume_mn": 45.291816,
+    "approved_pct": 99.08,
+    "bd_pct": 0.82,
+    "td_pct": 0.1
+  },
+  {
+    "entity_name": "Tamilnad Mercantile Bank Limited",
+    "direction": "Beneficiary",
+    "month": "2026-08-01",
+    "volume_mn": 45.009736,
+    "approved_pct": 98.85,
+    "bd_pct": 0.73,
+    "td_pct": 0.42
   },
   {
     "entity_name": "KERALA GRAMIN BANK",
     "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 33.43,
-    "approved_pct": 99.18,
-    "bd_pct": 0.17,
-    "td_pct": 0.65
+    "month": "2026-08-01",
+    "volume_mn": 38.990573,
+    "approved_pct": 99.2,
+    "bd_pct": 0.13,
+    "td_pct": 0.67
   },
   {
     "entity_name": "City Union Bank",
     "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 31.27,
-    "approved_pct": 99.33,
-    "bd_pct": 0.39,
-    "td_pct": 0.27
+    "month": "2026-08-01",
+    "volume_mn": 34.648664,
+    "approved_pct": 99.58,
+    "bd_pct": 0.27,
+    "td_pct": 0.15
   },
   {
     "entity_name": "Punjab and Sind Bank",
     "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 29.82,
-    "approved_pct": 96.58,
-    "bd_pct": 0.5,
-    "td_pct": 2.92
-  },
-  {
-    "entity_name": "UJJIVAN SMALL FINANCE BANK LIMITED",
-    "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 29.34,
-    "approved_pct": 99.6,
-    "bd_pct": 0.24,
-    "td_pct": 0.15
-  },
-  {
-    "entity_name": "Karnataka Gramin Bank",
-    "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 27.78,
-    "approved_pct": 98.62,
-    "bd_pct": 0.38,
-    "td_pct": 1.0
+    "month": "2026-08-01",
+    "volume_mn": 31.989084,
+    "approved_pct": 97.06,
+    "bd_pct": 0.62,
+    "td_pct": 2.32
   },
   {
     "entity_name": "Rajasthan Marudhara Gramin Bank",
     "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 27.76,
-    "approved_pct": 99.01,
-    "bd_pct": 0.59,
-    "td_pct": 0.4
+    "month": "2026-08-01",
+    "volume_mn": 31.924956,
+    "approved_pct": 98.68,
+    "bd_pct": 0.81,
+    "td_pct": 0.52
+  },
+  {
+    "entity_name": "UJJIVAN SMALL FINANCE BANK LIMITED",
+    "direction": "Beneficiary",
+    "month": "2026-08-01",
+    "volume_mn": 31.768294,
+    "approved_pct": 99.61,
+    "bd_pct": 0.26,
+    "td_pct": 0.13
+  },
+  {
+    "entity_name": "Karnataka Gramin Bank",
+    "direction": "Beneficiary",
+    "month": "2026-08-01",
+    "volume_mn": 30.271637,
+    "approved_pct": 98.83,
+    "bd_pct": 0.57,
+    "td_pct": 0.6
   },
   {
     "entity_name": "CHAITANYA GODAVARI GRAMEENA BANK",
     "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 24.25,
-    "approved_pct": 99.36,
-    "bd_pct": 0.55,
-    "td_pct": 0.09
+    "month": "2026-08-01",
+    "volume_mn": 27.85114,
+    "approved_pct": 99.41,
+    "bd_pct": 0.49,
+    "td_pct": 0.1
   },
   {
     "entity_name": "TELANGANA GRAMEENA BANK",
     "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 23.07,
-    "approved_pct": 97.7,
-    "bd_pct": 0.25,
-    "td_pct": 2.05
+    "month": "2026-08-01",
+    "volume_mn": 23.711857,
+    "approved_pct": 99.33,
+    "bd_pct": 0.31,
+    "td_pct": 0.36
   },
   {
     "entity_name": "CITIBANK CORPORATE",
     "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 21.5,
-    "approved_pct": 99.06,
-    "bd_pct": 0.6,
-    "td_pct": 0.34
+    "month": "2026-08-01",
+    "volume_mn": 23.611,
+    "approved_pct": 99.16,
+    "bd_pct": 0.81,
+    "td_pct": 0.04
   },
   {
     "entity_name": "Maharashtra Gramin Bank",
     "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 18.4,
-    "approved_pct": 98.08,
-    "bd_pct": 0.18,
-    "td_pct": 1.75
-  },
-  {
-    "entity_name": "ESAF SMALL FINANCE BANK LTD",
-    "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 17.1,
-    "approved_pct": 98.28,
-    "bd_pct": 0.15,
-    "td_pct": 1.57
+    "month": "2026-08-01",
+    "volume_mn": 19.294174,
+    "approved_pct": 98.71,
+    "bd_pct": 0.24,
+    "td_pct": 1.05
   },
   {
     "entity_name": "JANA SMALL FINANCE BANK LTD",
     "direction": "Beneficiary",
-    "month": "2026-06-01",
-    "volume_mn": 16.97,
-    "approved_pct": 99.36,
-    "bd_pct": 0.26,
-    "td_pct": 0.39
+    "month": "2026-08-01",
+    "volume_mn": 19.250069,
+    "approved_pct": 99.48,
+    "bd_pct": 0.27,
+    "td_pct": 0.25
+  },
+  {
+    "entity_name": "Dakshin Bihar Gramin Bank (Erstwhile Madhya Bihar Gramin Bank)",
+    "direction": "Beneficiary",
+    "month": "2026-08-01",
+    "volume_mn": 18.788031,
+    "approved_pct": 98.22,
+    "bd_pct": 0.38,
+    "td_pct": 1.4
   }
 ]
