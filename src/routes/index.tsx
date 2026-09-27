@@ -15,6 +15,7 @@ import { AutoPayView } from '../components/AutoPayView'
 import { RbiCardsView } from '../components/RbiCardsView'
 import { RbiPaymentsView } from '../components/RbiPaymentsView'
 import { CircularsView } from '../components/CircularsView'
+import { ChatBox } from '../components/ChatBox'
 
 export const Route = createFileRoute('/')({
   component: Landing,
@@ -38,6 +39,7 @@ function Dashboard({ onBack }: { onBack: () => void }) {
     <DashboardProvider months={appStats.data.months} theme={theme} toggleTheme={toggleTheme}>
       <Header theme={theme} onToggleTheme={toggleTheme} onBack={onBack} />
       <ActiveView />
+      <ChatBox />
     </DashboardProvider>
   )
 }
