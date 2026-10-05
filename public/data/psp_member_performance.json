@@ -243,7 +243,7 @@
     "td_pct": 0.2
   },
   {
-    "entity_name": "Slice Small Finance Bank Limited",
+    "entity_name": "slice Small Finance Bank Limited",
     "direction": "Remitter",
     "month": "2026-08-01",
     "volume_mn": 111.853209,
@@ -252,7 +252,7 @@
     "td_pct": 0.03
   },
   {
-    "entity_name": "BANDHAN BANK LIMITED",
+    "entity_name": "Bandhan Bank Limited",
     "direction": "Remitter",
     "month": "2026-08-01",
     "volume_mn": 110.416792,
@@ -279,7 +279,7 @@
     "td_pct": 0.08
   },
   {
-    "entity_name": "JIO PAYMENTS BANK LTD",
+    "entity_name": "Jio Payments Bank Ltd",
     "direction": "Remitter",
     "month": "2026-08-01",
     "volume_mn": 101.649976,
@@ -333,7 +333,7 @@
     "td_pct": 0.36
   },
   {
-    "entity_name": "UJJIVAN SMALL FINANCE BANK LIMITED",
+    "entity_name": "Ujjivan Small Finance Bank Limited",
     "direction": "Remitter",
     "month": "2026-08-01",
     "volume_mn": 70.348319,
@@ -342,7 +342,7 @@
     "td_pct": 0.21
   },
   {
-    "entity_name": "KERALA GRAMIN BANK",
+    "entity_name": "Kerala Gramin Bank",
     "direction": "Remitter",
     "month": "2026-08-01",
     "volume_mn": 68.614167,
@@ -369,7 +369,7 @@
     "td_pct": 0.23
   },
   {
-    "entity_name": "CHAITANYA GODAVARI GRAMEENA BANK",
+    "entity_name": "Chaitanya Godavari Grameena Bank",
     "direction": "Remitter",
     "month": "2026-08-01",
     "volume_mn": 57.575597,
@@ -378,7 +378,7 @@
     "td_pct": 0.16
   },
   {
-    "entity_name": "TELANGANA GRAMEENA BANK",
+    "entity_name": "Telangana Grameena Bank",
     "direction": "Remitter",
     "month": "2026-08-01",
     "volume_mn": 56.382922,
@@ -396,7 +396,7 @@
     "td_pct": 1.23
   },
   {
-    "entity_name": "ESAF SMALL FINANCE BANK LTD",
+    "entity_name": "ESAF Small Finance Bank Ltd",
     "direction": "Remitter",
     "month": "2026-08-01",
     "volume_mn": 41.09294,
@@ -414,7 +414,7 @@
     "td_pct": 0.47
   },
   {
-    "entity_name": "SARVA HARYANA GRAMIN BANK",
+    "entity_name": "Sarva Haryana Gramin Bank",
     "direction": "Remitter",
     "month": "2026-08-01",
     "volume_mn": 33.228492,
@@ -432,7 +432,7 @@
     "td_pct": 0.16
   },
   {
-    "entity_name": "EQUITAS SMALL FINANCE BANK",
+    "entity_name": "Equitas Small Finance Bank",
     "direction": "Remitter",
     "month": "2026-08-01",
     "volume_mn": 31.340191,
@@ -675,7 +675,7 @@
     "td_pct": 0.22
   },
   {
-    "entity_name": "JIO PAYMENTS BANK LTD",
+    "entity_name": "Jio Payments Bank Ltd",
     "direction": "Beneficiary",
     "month": "2026-08-01",
     "volume_mn": 80.266435,
@@ -711,7 +711,7 @@
     "td_pct": 0.22
   },
   {
-    "entity_name": "BANDHAN BANK LIMITED",
+    "entity_name": "Bandhan Bank Limited",
     "direction": "Beneficiary",
     "month": "2026-08-01",
     "volume_mn": 64.039835,
@@ -756,7 +756,7 @@
     "td_pct": 0.07
   },
   {
-    "entity_name": "Slice Small Finance Bank Limited",
+    "entity_name": "slice Small Finance Bank Limited",
     "direction": "Beneficiary",
     "month": "2026-08-01",
     "volume_mn": 55.038482,
@@ -792,7 +792,7 @@
     "td_pct": 0.42
   },
   {
-    "entity_name": "KERALA GRAMIN BANK",
+    "entity_name": "Kerala Gramin Bank",
     "direction": "Beneficiary",
     "month": "2026-08-01",
     "volume_mn": 38.990573,
@@ -828,7 +828,7 @@
     "td_pct": 0.52
   },
   {
-    "entity_name": "UJJIVAN SMALL FINANCE BANK LIMITED",
+    "entity_name": "Ujjivan Small Finance Bank Limited",
     "direction": "Beneficiary",
     "month": "2026-08-01",
     "volume_mn": 31.768294,
@@ -846,7 +846,7 @@
     "td_pct": 0.6
   },
   {
-    "entity_name": "CHAITANYA GODAVARI GRAMEENA BANK",
+    "entity_name": "Chaitanya Godavari Grameena Bank",
     "direction": "Beneficiary",
     "month": "2026-08-01",
     "volume_mn": 27.85114,
@@ -855,7 +855,7 @@
     "td_pct": 0.1
   },
   {
-    "entity_name": "TELANGANA GRAMEENA BANK",
+    "entity_name": "Telangana Grameena Bank",
     "direction": "Beneficiary",
     "month": "2026-08-01",
     "volume_mn": 23.711857,
@@ -864,7 +864,7 @@
     "td_pct": 0.36
   },
   {
-    "entity_name": "CITIBANK CORPORATE",
+    "entity_name": "Citibank Corporate",
     "direction": "Beneficiary",
     "month": "2026-08-01",
     "volume_mn": 23.611,
@@ -882,7 +882,7 @@
     "td_pct": 1.05
   },
   {
-    "entity_name": "JANA SMALL FINANCE BANK LTD",
+    "entity_name": "Jana Small Finance Bank Ltd",
     "direction": "Beneficiary",
     "month": "2026-08-01",
     "volume_mn": 19.250069,
