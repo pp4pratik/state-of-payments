@@ -2,7 +2,7 @@ name: Fetch Monthly Data
 
 on:
   schedule:
-    - cron: '0 6 5 * *'   # 06:00 UTC on the 5th of every month
+    - cron: '0 6 10 * *'   # 06:00 UTC on the 10th of every month
   workflow_dispatch:
 
 permissions:
