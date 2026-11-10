@@ -1,146 +1,146 @@
 [
   {
     "psp": "Yes Bank",
-    "month": "2026-08-01",
-    "executions_mn": 303.459102,
-    "approved_pct": 97.31,
-    "bd_pct": 2.62,
-    "td_pct": 0.07
+    "month": "2026-09-01",
+    "executions_mn": 300.660921,
+    "approved_pct": 97.94,
+    "bd_pct": 2.05,
+    "td_pct": 0.01
   },
   {
     "psp": "Axis Bank",
-    "month": "2026-08-01",
-    "executions_mn": 120.275235,
-    "approved_pct": 97.23,
-    "bd_pct": 2.74,
-    "td_pct": 0.03
-  },
-  {
-    "psp": "ICICI Bank",
-    "month": "2026-08-01",
-    "executions_mn": 90.435177,
-    "approved_pct": 96.39,
-    "bd_pct": 3.51,
-    "td_pct": 0.1
-  },
-  {
-    "psp": "State Bank Of India",
-    "month": "2026-08-01",
-    "executions_mn": 45.189758,
-    "approved_pct": 98.45,
-    "bd_pct": 1.54,
+    "month": "2026-09-01",
+    "executions_mn": 120.46808,
+    "approved_pct": 96.57,
+    "bd_pct": 3.43,
     "td_pct": 0.0
   },
   {
+    "psp": "ICICI Bank",
+    "month": "2026-09-01",
+    "executions_mn": 89.081397,
+    "approved_pct": 97.61,
+    "bd_pct": 2.36,
+    "td_pct": 0.03
+  },
+  {
+    "psp": "State Bank Of India",
+    "month": "2026-09-01",
+    "executions_mn": 45.66341,
+    "approved_pct": 97.46,
+    "bd_pct": 2.52,
+    "td_pct": 0.02
+  },
+  {
     "psp": "HDFC Bank",
-    "month": "2026-08-01",
-    "executions_mn": 40.603278,
-    "approved_pct": 99.23,
-    "bd_pct": 0.77,
+    "month": "2026-09-01",
+    "executions_mn": 40.696107,
+    "approved_pct": 99.28,
+    "bd_pct": 0.72,
     "td_pct": 0.0
   },
   {
     "psp": "BHIM",
-    "month": "2026-08-01",
-    "executions_mn": 3.298613,
-    "approved_pct": 96.7,
-    "bd_pct": 3.3,
+    "month": "2026-09-01",
+    "executions_mn": 3.340285,
+    "approved_pct": 97.28,
+    "bd_pct": 2.72,
     "td_pct": 0.0
   },
   {
     "psp": "Kotak Mahindra Bank",
-    "month": "2026-08-01",
-    "executions_mn": 2.007613,
-    "approved_pct": 25.19,
-    "bd_pct": 74.81,
+    "month": "2026-09-01",
+    "executions_mn": 1.869741,
+    "approved_pct": 25.45,
+    "bd_pct": 74.55,
     "td_pct": 0.0
   },
   {
     "psp": "Slice Small Finance Bank",
-    "month": "2026-08-01",
-    "executions_mn": 1.449944,
-    "approved_pct": 24.16,
-    "bd_pct": 75.56,
-    "td_pct": 0.28
+    "month": "2026-09-01",
+    "executions_mn": 1.549021,
+    "approved_pct": 24.07,
+    "bd_pct": 75.85,
+    "td_pct": 0.08
   },
   {
     "psp": "Airtel Payments Bank",
-    "month": "2026-08-01",
-    "executions_mn": 1.009017,
-    "approved_pct": 5.47,
-    "bd_pct": 94.44,
-    "td_pct": 0.09
+    "month": "2026-09-01",
+    "executions_mn": 1.000152,
+    "approved_pct": 5.99,
+    "bd_pct": 93.5,
+    "td_pct": 0.51
   },
   {
     "psp": "Unity Small Finance Bank",
-    "month": "2026-08-01",
-    "executions_mn": 0.434079,
-    "approved_pct": 97.35,
-    "bd_pct": 2.65,
-    "td_pct": 0.0
-  },
-  {
-    "psp": "Jio Payments Bank",
-    "month": "2026-08-01",
-    "executions_mn": 0.092527,
-    "approved_pct": 8.22,
-    "bd_pct": 1.54,
-    "td_pct": 90.24
-  },
-  {
-    "psp": "RBL Bank",
-    "month": "2026-08-01",
-    "executions_mn": 0.086661,
-    "approved_pct": 98.81,
-    "bd_pct": 1.19,
+    "month": "2026-09-01",
+    "executions_mn": 0.389661,
+    "approved_pct": 98.18,
+    "bd_pct": 1.82,
     "td_pct": 0.0
   },
   {
     "psp": "NSDL Payments Bank",
-    "month": "2026-08-01",
-    "executions_mn": 0.075483,
-    "approved_pct": 86.34,
-    "bd_pct": 13.66,
+    "month": "2026-09-01",
+    "executions_mn": 0.101788,
+    "approved_pct": 90.59,
+    "bd_pct": 9.41,
     "td_pct": 0.0
   },
   {
-    "psp": "DBS Bank India",
-    "month": "2026-08-01",
-    "executions_mn": 0.028239,
-    "approved_pct": 40.92,
-    "bd_pct": 59.08,
+    "psp": "Jio Payments Bank",
+    "month": "2026-09-01",
+    "executions_mn": 0.090149,
+    "approved_pct": 10.8,
+    "bd_pct": 1.11,
+    "td_pct": 88.09
+  },
+  {
+    "psp": "RBL Bank",
+    "month": "2026-09-01",
+    "executions_mn": 0.089744,
+    "approved_pct": 97.89,
+    "bd_pct": 2.11,
     "td_pct": 0.0
   },
   {
     "psp": "IndusInd Bank",
-    "month": "2026-08-01",
-    "executions_mn": 0.023786,
-    "approved_pct": 22.02,
-    "bd_pct": 77.98,
+    "month": "2026-09-01",
+    "executions_mn": 0.026521,
+    "approved_pct": 16.93,
+    "bd_pct": 83.07,
+    "td_pct": 0.0
+  },
+  {
+    "psp": "DBS Bank India",
+    "month": "2026-09-01",
+    "executions_mn": 0.025908,
+    "approved_pct": 36.19,
+    "bd_pct": 63.81,
     "td_pct": 0.0
   },
   {
     "psp": "Canara Bank",
-    "month": "2026-08-01",
-    "executions_mn": 0.02269,
-    "approved_pct": 71.22,
-    "bd_pct": 28.78,
+    "month": "2026-09-01",
+    "executions_mn": 0.021549,
+    "approved_pct": 71.33,
+    "bd_pct": 28.67,
     "td_pct": 0.0
   },
   {
     "psp": "Bank of India",
-    "month": "2026-08-01",
-    "executions_mn": 0.017946,
-    "approved_pct": 2.25,
-    "bd_pct": 97.75,
+    "month": "2026-09-01",
+    "executions_mn": 0.020972,
+    "approved_pct": 0.07,
+    "bd_pct": 99.93,
     "td_pct": 0.0
   },
   {
     "psp": "Bank of Baroda",
-    "month": "2026-08-01",
-    "executions_mn": 0.011708,
-    "approved_pct": 95.11,
-    "bd_pct": 4.89,
+    "month": "2026-09-01",
+    "executions_mn": 0.01177,
+    "approved_pct": 95.29,
+    "bd_pct": 4.71,
     "td_pct": 0.0
   }
 ]

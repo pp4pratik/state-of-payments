@@ -4478,5 +4478,245 @@
     "month": "2026-08-01",
     "volume_mn": 2982.5699999999997,
     "value_cr": 407596.64
+  },
+  {
+    "description": "Groceries and supermarkets",
+    "mcc": "5411",
+    "type": "High Transacting",
+    "month": "2026-09-01",
+    "volume_mn": 3942.44,
+    "value_cr": 84237.9
+  },
+  {
+    "description": "Fast food restaurants",
+    "mcc": "5814",
+    "type": "High Transacting",
+    "month": "2026-09-01",
+    "volume_mn": 1510.07,
+    "value_cr": 18131.91
+  },
+  {
+    "description": "Eating places and restaurants",
+    "mcc": "5812",
+    "type": "High Transacting",
+    "month": "2026-09-01",
+    "volume_mn": 1279.75,
+    "value_cr": 21406.48
+  },
+  {
+    "description": "Telecommunication services, including local and long distance calls, credit card calls, calls through use of magnetic stripe reading telephones and faxes",
+    "mcc": "4814",
+    "type": "High Transacting",
+    "month": "2026-09-01",
+    "volume_mn": 811.59,
+    "value_cr": 23296.52
+  },
+  {
+    "description": "Service stations (with or without ancillary services)",
+    "mcc": "5541",
+    "type": "High Transacting",
+    "month": "2026-09-01",
+    "volume_mn": 744.84,
+    "value_cr": 42367.62
+  },
+  {
+    "description": "Bakeries",
+    "mcc": "5462",
+    "type": "High Transacting",
+    "month": "2026-09-01",
+    "volume_mn": 505.03,
+    "value_cr": 6717.5
+  },
+  {
+    "description": "Cigar shops and stands",
+    "mcc": "5993",
+    "type": "High Transacting",
+    "month": "2026-09-01",
+    "volume_mn": 476.41,
+    "value_cr": 3093.48
+  },
+  {
+    "description": "Drug stores and pharmacies",
+    "mcc": "5912",
+    "type": "High Transacting",
+    "month": "2026-09-01",
+    "volume_mn": 329.68,
+    "value_cr": 13773.79
+  },
+  {
+    "description": "Dairies",
+    "mcc": "5451",
+    "type": "High Transacting",
+    "month": "2026-09-01",
+    "volume_mn": 294.38,
+    "value_cr": 6359.83
+  },
+  {
+    "description": "Purchase of digital gold",
+    "mcc": "5412",
+    "type": "High Transacting",
+    "month": "2026-09-01",
+    "volume_mn": 246.29,
+    "value_cr": 2585.35
+  },
+  {
+    "description": "Debt collection agencies",
+    "mcc": "7322",
+    "type": "Medium Transacting",
+    "month": "2026-09-01",
+    "volume_mn": 222.03,
+    "value_cr": 76244.53
+  },
+  {
+    "description": "Package shops beer, wine and liquor",
+    "mcc": "5921",
+    "type": "Medium Transacting",
+    "month": "2026-09-01",
+    "volume_mn": 216.55,
+    "value_cr": 8884.3
+  },
+  {
+    "description": "Online Marketplaces",
+    "mcc": "5262",
+    "type": "Medium Transacting",
+    "month": "2026-09-01",
+    "volume_mn": 164.39,
+    "value_cr": 8691.99
+  },
+  {
+    "description": "Government services not elsewhere classified",
+    "mcc": "9399",
+    "type": "Medium Transacting",
+    "month": "2026-09-01",
+    "volume_mn": 148.85,
+    "value_cr": 10860.28
+  },
+  {
+    "description": "Utilities electric, gas, water and sanitary",
+    "mcc": "4900",
+    "type": "Medium Transacting",
+    "month": "2026-09-01",
+    "volume_mn": 147.16,
+    "value_cr": 24114.53
+  },
+  {
+    "description": "Candy, nut and confectionery shops",
+    "mcc": "5441",
+    "type": "Medium Transacting",
+    "month": "2026-09-01",
+    "volume_mn": 136.36,
+    "value_cr": 2747.65
+  },
+  {
+    "description": "Freezer and locker meat provisioners",
+    "mcc": "5422",
+    "type": "Medium Transacting",
+    "month": "2026-09-01",
+    "volume_mn": 127.72,
+    "value_cr": 4254.33
+  },
+  {
+    "description": "Variety stores",
+    "mcc": "5331",
+    "type": "Medium Transacting",
+    "month": "2026-09-01",
+    "volume_mn": 107.4,
+    "value_cr": 4298.89
+  },
+  {
+    "description": "Digital Goods: Media, Books, Movies, Music",
+    "mcc": "5815",
+    "type": "Medium Transacting",
+    "month": "2026-09-01",
+    "volume_mn": 91.64,
+    "value_cr": 2034.9
+  },
+  {
+    "description": "Securities brokers and dealers",
+    "mcc": "6211",
+    "type": "Medium Transacting",
+    "month": "2026-09-01",
+    "volume_mn": 91.61,
+    "value_cr": 74116.12
+  },
+  {
+    "description": "Drinking places (alcoholic beverages) bars, taverns, night-clubs, cocktail lounges and discothques",
+    "mcc": "5813",
+    "type": "All Other",
+    "month": "2026-09-01",
+    "volume_mn": 90.49,
+    "value_cr": 3605.12
+  },
+  {
+    "description": "Beauty and barber shops",
+    "mcc": "7230",
+    "type": "All Other",
+    "month": "2026-09-01",
+    "volume_mn": 88.49,
+    "value_cr": 2455.61
+  },
+  {
+    "description": "Family clothing shops",
+    "mcc": "5651",
+    "type": "All Other",
+    "month": "2026-09-01",
+    "volume_mn": 88.2,
+    "value_cr": 7665.77
+  },
+  {
+    "description": "Electronics repair shops",
+    "mcc": "7622",
+    "type": "All Other",
+    "month": "2026-09-01",
+    "volume_mn": 86.06,
+    "value_cr": 2322.99
+  },
+  {
+    "description": "Electronics shops",
+    "mcc": "5732",
+    "type": "All Other",
+    "month": "2026-09-01",
+    "volume_mn": 82.31,
+    "value_cr": 10061.94
+  },
+  {
+    "description": "Department stores",
+    "mcc": "5311",
+    "type": "All Other",
+    "month": "2026-09-01",
+    "volume_mn": 79.0,
+    "value_cr": 4666.22
+  },
+  {
+    "description": "Mens and womens clothing shops",
+    "mcc": "5691",
+    "type": "All Other",
+    "month": "2026-09-01",
+    "volume_mn": 76.88,
+    "value_cr": 9567.42
+  },
+  {
+    "description": "Taxi-cabs and limousines",
+    "mcc": "4121",
+    "type": "All Other",
+    "month": "2026-09-01",
+    "volume_mn": 75.72,
+    "value_cr": 1084.1
+  },
+  {
+    "description": "Passenger railways",
+    "mcc": "4112",
+    "type": "All Other",
+    "month": "2026-09-01",
+    "volume_mn": 73.76,
+    "value_cr": 5296.06
+  },
+  {
+    "description": "Others",
+    "mcc": "",
+    "type": "All Other",
+    "month": "2026-09-01",
+    "volume_mn": 2894.010000000002,
+    "value_cr": 402044.01
   }
 ]

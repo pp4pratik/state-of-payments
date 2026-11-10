@@ -214,5 +214,11 @@
     "banks_live": 756.0,
     "total_volume_mn": 24068.38,
     "total_value_cr": 2937396.67
+  },
+  {
+    "month": "2026-10-01",
+    "banks_live": 758.0,
+    "total_volume_mn": 25466.7,
+    "total_value_cr": 3152929.46
   }
 ]
